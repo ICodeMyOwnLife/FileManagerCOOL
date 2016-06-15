@@ -167,23 +167,23 @@
       <Project>{49a228f3-5a12-42ac-93f1-5d10377ed89d}</Project>
       <Name>CB.Wpf.Elements</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\DotNet\CB.WPF\CB.WPF.MahAppsExtension\CB.WPF.MahAppsExtension.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.WPF\CB.WPF.MahAppsExtension\CB.WPF.MahAppsExtension.csproj">
       <Project>{29bf73a0-6a4d-484b-83aa-5e5e13473a5a}</Project>
       <Name>CB.WPF.MahAppsExtension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\DotNet\CB.WPF\CB.WPF.Resources.MahApps\CB.WPF.Resources.MahApps.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.WPF\CB.WPF.Resources.MahApps\CB.WPF.Resources.MahApps.csproj">
       <Project>{88845a0d-9b1f-4d1a-92d3-0c8d97e4d747}</Project>
       <Name>CB.WPF.Resources.MahApps</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.AttachedProperties\CB.Xaml.AttachedProperties.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.AttachedProperties\CB.Xaml.AttachedProperties.csproj">
       <Project>{1ccb7f4e-228a-4a8e-a211-a032c9c8767b}</Project>
       <Name>CB.Xaml.AttachedProperties</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.Commands\CB.Xaml.Commands.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.Commands\CB.Xaml.Commands.csproj">
       <Project>{c5dc3209-4a92-4243-8188-adbd4fa87fc3}</Project>
       <Name>CB.Xaml.Commands</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.ValueConverters\CB.Xaml.ValueConverters.csproj">
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.ValueConverters\CB.Xaml.ValueConverters.csproj">
       <Project>{3c46f9a4-7a8b-4588-872f-60b36e471fc5}</Project>
       <Name>CB.Xaml.ValueConverters</Name>
     </ProjectReference>
