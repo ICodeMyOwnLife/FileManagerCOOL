@@ -16,9 +16,16 @@ namespace FileManagerWindows.ViewModels
     public class MainViewModel: PrismViewModelBase
     {
         #region Fields
+        private const char DEFAULT_MASK_CHAR = '0';
+        private const string DEFAULT_NEW_NAME = "New";
+        private string _baseName = $"{DEFAULT_NEW_NAME}{DEFAULT_MASK_CHAR}{DEFAULT_MASK_CHAR}";
         private bool _canExtract;
         private bool _deleteAfterExtracted;
         private IEnumerable<FileSystemInfo> _entries;
+        private char _maskChar = DEFAULT_MASK_CHAR;
+        private IEnumerable<string> _newNames;
+        private int _startAt = 1;
+        private bool _useMask = true;
         #endregion
 
 
@@ -38,6 +45,12 @@ namespace FileManagerWindows.ViewModels
 
 
         #region  Properties & Indexers
+        public string BaseName
+        {
+            get { return _baseName; }
+            set { SetProperty(ref _baseName, value); }
+        }
+
         public bool CanExtract
         {
             get { return _canExtract; }
@@ -65,8 +78,33 @@ namespace FileManagerWindows.ViewModels
                 {
                     CanExtract = value != null &&
                                  value.Any(f => f.Type == FileSystemType.Compression || f.Type == FileSystemType.Folder);
+                    UpdateNewNames();
                 }
             }
+        }
+
+        public char MaskChar
+        {
+            get { return _maskChar; }
+            set { SetProperty(ref _maskChar, value); }
+        }
+
+        public IEnumerable<string> NewNames
+        {
+            get { return _newNames; }
+            private set { SetProperty(ref _newNames, value); }
+        }
+
+        public int StartAt
+        {
+            get { return _startAt; }
+            set { SetProperty(ref _startAt, value); }
+        }
+
+        public bool UseMask
+        {
+            get { return _useMask; }
+            set { SetProperty(ref _useMask, value); }
         }
         #endregion
 
@@ -110,6 +148,23 @@ namespace FileManagerWindows.ViewModels
         private void ExtractCompresstion(FileSystemInfo compressionEntry)
         {
             // UNDONE: ExtractCompresstion
+        }
+
+        private void UpdateNewNames()
+        {
+            NewNames = Entries?.Select((fsi, i) =>
+            {
+                var baseName = BaseName ?? "";
+                var suffix = (i + StartAt).ToString();
+
+                if (!UseMask) return baseName + suffix;
+
+                var maskCharCount = 0;
+                for (var j = baseName.Length - 1; j >= 0 && baseName[j] == MaskChar; --j, ++maskCharCount) { }
+
+                var prefixLength = baseName.Length - Math.Min(maskCharCount, suffix.Length);
+                return baseName.Substring(0, prefixLength) + suffix;
+            });
         }
         #endregion
     }

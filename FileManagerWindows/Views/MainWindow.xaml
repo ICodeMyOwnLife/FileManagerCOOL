@@ -4,18 +4,53 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                 xmlns:viewModels="clr-namespace:FileManagerWindows.ViewModels"
+                 xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                  xmlns:prism="http://prismlibrary.com/"
+                 xmlns:models="clr-namespace:FileManagerWindows.Models"
+                 xmlns:helpers="clr-namespace:FileManagerWindows.Helpers"
                  mc:Ignorable="d"
                  Title="MainWindow" Height="600" Width="800" Style="{StaticResource MetroWindowStyle}"
-                 WindowStartupLocation="CenterScreen" d:DataContext="{d:DesignInstance viewModels:MainDesignViewModel}"
-                 AllowDrop="True">
+                 WindowStartupLocation="CenterScreen" AllowDrop="True">
 
     <Window.Resources>
-        <viewModels:MainViewModel x:Key="MainViewModel" />
+        <vmd:MainViewModel x:Key="MainViewModel" />
 
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+
+        <helpers:FileSystemInfoTemplateSelector x:Key="FileSystemInfoTemplateSelector" />
+
+        <Style x:Key="IconViewBox" TargetType="Viewbox">
+            <Setter Property="Width" Value="28" />
+            <Setter Property="Height" Value="28" />
+        </Style>
+
+        <DataTemplate x:Key="FileTemplate" DataType="models:FileSystemInfo">
+            <StackPanel Orientation="Horizontal">
+                <Viewbox Style="{StaticResource IconViewBox}">
+                    <ContentControl Content="{DynamicResource appbar_page_text}" />
+                </Viewbox>
+                <TextBlock Text="{Binding Name}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="FolderTemplate" DataType="models:FileSystemInfo">
+            <StackPanel Orientation="Horizontal">
+                <Viewbox Style="{StaticResource IconViewBox}">
+                    <ContentControl Content="{DynamicResource appbar_folder}" />
+                </Viewbox>
+                <TextBlock Text="{Binding Name}" />
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="CompressionTemplate" DataType="models:FileSystemInfo">
+            <StackPanel Orientation="Horizontal">
+                <Viewbox Style="{StaticResource IconViewBox}">
+                    <ContentControl Content="{DynamicResource appbar_archive}" />
+                </Viewbox>
+                <TextBlock Text="{Binding Name}" />
+            </StackPanel>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.DataContext>
@@ -43,7 +78,8 @@
 
 
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Entries}" />
+            <ListView ItemsSource="{Binding Entries}"
+                      ItemTemplateSelector="{StaticResource FileSystemInfoTemplateSelector}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -58,7 +94,7 @@
 
             <CheckBox Grid.Column="1" Content="Delete after extracted"
                       IsChecked="{Binding DeleteAfterExtracted}"
-                      Visibility="{Binding CanExtract, Converter={StaticResource VisibilityConverter}}"/>
+                      Visibility="{Binding CanExtract, Converter={StaticResource VisibilityConverter}}" />
         </Grid>
 
         <StatusBar Grid.Row="3" />
