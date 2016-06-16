@@ -89,12 +89,15 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Extract"
-                    Command="{Binding ExtractCommand}" />
+            <ComboBox ItemsSource="{Binding CommandCollection.CollectionView}" />
+
 
             <CheckBox Grid.Column="1" Content="Delete after extracted"
                       IsChecked="{Binding DeleteAfterExtracted}"
                       Visibility="{Binding CanExtract, Converter={StaticResource VisibilityConverter}}" />
+            
+            <Button Grid.Column="2" Content="Run"
+                    Command="{Binding CommandCollection.SelectedItem.Command}" />
         </Grid>
 
         <StatusBar Grid.Row="3" />

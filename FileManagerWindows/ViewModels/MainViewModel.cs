@@ -34,6 +34,12 @@ namespace FileManagerWindows.ViewModels
         {
             DropCommand = new DelegateCommand<IDataObject>(Drop);
             ExtractCommand = new DelegateCommand(Extract, () => CanExtract);
+            RenameCommand = new DelegateCommand(Rename);
+            CommandCollection = new CollectionBase<NamedCommand, List<NamedCommand>>(new List<NamedCommand>
+            {
+                new NamedCommand("Extract", ExtractCommand),
+                new NamedCommand("Rename", RenameCommand)
+            });
         }
         #endregion
 
@@ -41,6 +47,7 @@ namespace FileManagerWindows.ViewModels
         #region  Commands
         public ICommand DropCommand { get; }
         public ICommand ExtractCommand { get; }
+        public ICommand RenameCommand { get; }
         #endregion
 
 
@@ -62,6 +69,8 @@ namespace FileManagerWindows.ViewModels
                 }
             }
         }
+
+        public CollectionBase<NamedCommand, List<NamedCommand>> CommandCollection { get; }
 
         public bool DeleteAfterExtracted
         {
@@ -131,6 +140,11 @@ namespace FileManagerWindows.ViewModels
                         throw new NotSupportedException();
                 }
             }
+        }
+
+        public void Rename()
+        {
+            // UNDONE: Rename
         }
         #endregion
 
