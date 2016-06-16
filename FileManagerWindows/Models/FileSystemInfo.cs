@@ -17,8 +17,14 @@ namespace FileManagerWindows.Models
 
         #region  Properties & Indexers
         public string FullPath { get; private set; }
-        public string Name { get; private set; }
+        public string Name { get; }
         public FileSystemType Type { get; private set; }
+        #endregion
+
+
+        #region Override
+        public override string ToString()
+            => Name;
         #endregion
 
 

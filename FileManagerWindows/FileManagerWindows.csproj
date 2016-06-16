@@ -54,6 +54,7 @@
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -89,7 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -97,9 +98,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainDesignViewModel.cs" />
-    <Compile Include="MainViewModel.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="ViewModels\MainDesignViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -142,6 +143,10 @@
     <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Dynamic\CB.Dynamic.CompilerServices\CB.Dynamic.CompilerServices.csproj">
       <Project>{e1091216-efe2-4065-b66d-4f90346b5991}</Project>
       <Name>CB.Dynamic.CompilerServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.IO\CB.IO.Common\CB.IO.Common.csproj">
+      <Project>{65789d31-922e-4801-a486-99c06827448c}</Project>
+      <Name>CB.IO.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Media\CB.Media.Brushes\CB.Media.Brushes.csproj">
       <Project>{61a1fdd6-1482-4d6c-a276-51d4124ec53b}</Project>
@@ -188,10 +193,7 @@
       <Name>CB.Xaml.ValueConverters</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

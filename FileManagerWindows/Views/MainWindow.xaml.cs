@@ -1,4 +1,4 @@
-﻿namespace FileManagerWindows
+﻿namespace FileManagerWindows.Views
 {
     public partial class MainWindow
     {

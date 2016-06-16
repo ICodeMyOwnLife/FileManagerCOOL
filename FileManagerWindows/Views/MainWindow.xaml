@@ -1,0 +1,66 @@
+﻿<mah:MetroWindow x:Class="FileManagerWindows.Views.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:viewModels="clr-namespace:FileManagerWindows.ViewModels"
+                 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                 xmlns:prism="http://prismlibrary.com/"
+                 mc:Ignorable="d"
+                 Title="MainWindow" Height="600" Width="800" Style="{StaticResource MetroWindowStyle}"
+                 WindowStartupLocation="CenterScreen" d:DataContext="{d:DesignInstance viewModels:MainDesignViewModel}"
+                 AllowDrop="True">
+
+    <Window.Resources>
+        <viewModels:MainViewModel x:Key="MainViewModel" />
+
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+    </Window.Resources>
+
+    <Window.DataContext>
+        <StaticResource ResourceKey="MainViewModel" />
+    </Window.DataContext>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Drop">
+            <prism:InvokeCommandAction Command="{Binding DropCommand}" TriggerParameterPath="Data" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Style="{StaticResource AppThemeMenuItemStyle}" />
+            <MenuItem Style="{StaticResource AccentMenuItemStyle}" />
+        </Menu>
+
+
+        <Grid Grid.Row="1">
+            <ListView ItemsSource="{Binding Entries}" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Extract"
+                    Command="{Binding ExtractCommand}" />
+
+            <CheckBox Grid.Column="1" Content="Delete after extracted"
+                      IsChecked="{Binding DeleteAfterExtracted}"
+                      Visibility="{Binding CanExtract, Converter={StaticResource VisibilityConverter}}"/>
+        </Grid>
+
+        <StatusBar Grid.Row="3" />
+    </Grid>
+</mah:MetroWindow>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManagerWindows", "FileManagerWindows\FileManagerWindows.csproj", "{0F56EDA9-CF7F-4C49-A67B-3FCD434D4902}"
 EndProject
@@ -30,6 +30,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CB.Xaml.Commands", "..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.Commands\CB.Xaml.Commands.csproj", "{C5DC3209-4A92-4243-8188-ADBD4FA87FC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CB.Xaml.ValueConverters", "..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.ValueConverters\CB.Xaml.ValueConverters.csproj", "{3C46F9A4-7A8B-4588-872F-60B36E471FC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CB.IO.Common", "..\..\..\Libraries\DotNet\CB.IO\CB.IO.Common\CB.IO.Common.csproj", "{65789D31-922E-4801-A486-99C06827448C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{3C46F9A4-7A8B-4588-872F-60B36E471FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C46F9A4-7A8B-4588-872F-60B36E471FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C46F9A4-7A8B-4588-872F-60B36E471FC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65789D31-922E-4801-A486-99C06827448C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65789D31-922E-4801-A486-99C06827448C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65789D31-922E-4801-A486-99C06827448C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65789D31-922E-4801-A486-99C06827448C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
