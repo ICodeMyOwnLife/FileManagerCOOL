@@ -7,12 +7,11 @@
                  xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                  xmlns:prism="http://prismlibrary.com/"
-                 xmlns:models="clr-namespace:FileManagerWindows.Models"
                  xmlns:v="clr-namespace:FileManagerWindows.Views"
                  xmlns:xaml="http://wpf.cb.com/xaml"
                  mc:Ignorable="d"
-                 Title="MainWindow" Height="600" Width="800" Style="{StaticResource MetroWindowStyle}"
-                 WindowStartupLocation="CenterScreen" AllowDrop="True">
+                 Title="File Manager COOL" Height="600" Width="800" Style="{StaticResource MetroWindowStyle}"
+                 WindowStartupLocation="CenterScreen" AllowDrop="True" Icon="../Folder2.ico">
 
     <Window.Resources>
         <vmd:MainViewModel x:Key="MainViewModel" />
@@ -45,7 +44,7 @@
             <MenuItem Style="{StaticResource AccentMenuItemStyle}" />
         </Menu>
 
-        <TabControl Grid.Row="1" xaml:SelectorServices.SelectedItemBinding="{Binding CommandCollection.SelectedItem}">
+        <mah:MetroAnimatedTabControl Grid.Row="1" xaml:SelectorServices.SelectedItemBinding="{Binding CommandCollection.SelectedItem}">
             <TabItem xaml:SelectorServices.SelectionBinding="{Binding CommandCollection.Collection[0]}">
                 <v:ExtractView DataContext="{Binding ExtractViewModel}" />
             </TabItem>
@@ -53,7 +52,7 @@
             <TabItem xaml:SelectorServices.SelectionBinding="{Binding CommandCollection.Collection[1]}">
                 <v:RenameView DataContext="{Binding RenameViewModel}" />
             </TabItem>
-        </TabControl>
+        </mah:MetroAnimatedTabControl>
         <Grid Grid.Row="1" />
 
         <Grid Grid.Row="2">
@@ -63,9 +62,9 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <ComboBox ItemsSource="{Binding CommandCollection.CollectionView}" />
+            <ComboBox MinWidth="{StaticResource ControlMinWidth}" ItemsSource="{Binding CommandCollection.CollectionView}" />
 
-            <Button Grid.Column="2" Content="Run"
+            <Button Grid.Column="2" Content="Run" MinWidth="{StaticResource ControlMinWidth}" HorizontalAlignment="Right"
                     Command="{Binding CommandCollection.SelectedItem.Command}" />
         </Grid>
 

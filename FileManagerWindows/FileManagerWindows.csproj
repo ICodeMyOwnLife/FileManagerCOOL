@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Folder2.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro, Version=1.3.0.162, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.3.0-ALPHA162\lib\net45\MahApps.Metro.dll</HintPath>
@@ -90,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\RenameSetting.cs" />
     <Compile Include="Views\RenameView.xaml.cs">
       <DependentUpon>RenameView.xaml</DependentUpon>
     </Compile>
@@ -175,6 +179,10 @@
       <Project>{65789d31-922e-4801-a486-99c06827448c}</Project>
       <Name>CB.IO.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.IO\CB.IO.Compression\CB.IO.Compression.csproj">
+      <Project>{b371daa6-99d4-4484-9601-ff885273ff70}</Project>
+      <Name>CB.IO.Compression</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Media\CB.Media.Brushes\CB.Media.Brushes.csproj">
       <Project>{61a1fdd6-1482-4d6c-a276-51d4124ec53b}</Project>
       <Name>CB.Media.Brushes</Name>
@@ -225,6 +233,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Folder2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

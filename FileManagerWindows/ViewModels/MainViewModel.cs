@@ -56,3 +56,7 @@ namespace FileManagerWindows.ViewModels
         #endregion
     }
 }
+
+// TODO: Remove, Remove All, Top, Up, Down, Bottom commands
+// TODO: Drop with Ctrl pressed: add to list rathan than replace
+// TODO: Drag drop on ListBox!!!

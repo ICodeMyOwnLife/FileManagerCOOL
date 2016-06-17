@@ -17,9 +17,8 @@
                   IsChecked="{Binding DeleteAfterExtracted}"
                   Visibility="{Binding CanExtract, Converter={StaticResource VisibilityConverter}}" />
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Entries}"
-                  Style="{StaticResource FileListView}" />
+        <GroupBox Grid.Row="1" Header="Entries">
+            <ListBox ItemsSource="{Binding Entries}" Style="{StaticResource FileList}" />
+        </GroupBox>
     </Grid>
-
-
 </UserControl>

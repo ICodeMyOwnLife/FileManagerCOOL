@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CB.Xaml.ValueConverters", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CB.IO.Common", "..\..\..\Libraries\DotNet\CB.IO\CB.IO.Common\CB.IO.Common.csproj", "{65789D31-922E-4801-A486-99C06827448C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CB.IO.Compression", "..\..\..\Libraries\DotNet\CB.IO\CB.IO.Compression\CB.IO.Compression.csproj", "{B371DAA6-99D4-4484-9601-FF885273FF70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{65789D31-922E-4801-A486-99C06827448C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65789D31-922E-4801-A486-99C06827448C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65789D31-922E-4801-A486-99C06827448C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B371DAA6-99D4-4484-9601-FF885273FF70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B371DAA6-99D4-4484-9601-FF885273FF70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B371DAA6-99D4-4484-9601-FF885273FF70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B371DAA6-99D4-4484-9601-FF885273FF70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

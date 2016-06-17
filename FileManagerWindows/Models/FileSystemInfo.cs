@@ -5,53 +5,19 @@ using CB.Model.Common;
 
 namespace FileManagerWindows.Models
 {
-    public class RenameSetting: BindableObject
+    public class FileSystemInfo: BindableObject
     {
         #region Fields
-        private const char DEFAULT_MASK_CHAR = '0';
-        private const string DEFAULT_NEW_NAME = "New";
-        private string _baseName = $"{DEFAULT_NEW_NAME}{DEFAULT_MASK_CHAR}{DEFAULT_MASK_CHAR}";
-        private char _maskChar = DEFAULT_MASK_CHAR;
-        private int _startAt = 1;
-        private bool _useMask = true;
+        private string _fullPath;
+        private string _name;
+        private FileSystemType _type;
         #endregion
 
 
-        #region  Properties & Indexers
-        public string BaseName
-        {
-            get { return _baseName; }
-            set { SetProperty(ref _baseName, value); }
-        }
-
-        public char MaskChar
-        {
-            get { return _maskChar; }
-            set { SetProperty(ref _maskChar, value); }
-        }
-
-        public int StartAt
-        {
-            get { return _startAt; }
-            set { SetProperty(ref _startAt, value); }
-        }
-
-        public bool UseMask
-        {
-            get { return _useMask; }
-            set { SetProperty(ref _useMask, value); }
-        }
-        #endregion
-    }
-
-    public class FileSystemInfo
-    {
         #region  Constructors & Destructor
         public FileSystemInfo(string path)
         {
             FullPath = path;
-            Name = Path.GetFileName(path);
-            Type = GetFileSystemType(path);
         }
 
         protected FileSystemInfo() { }
@@ -59,9 +25,30 @@ namespace FileManagerWindows.Models
 
 
         #region  Properties & Indexers
-        public string FullPath { get; private set; }
-        public string Name { get; private set; }
-        public FileSystemType Type { get; private set; }
+        public string FullPath
+        {
+            get { return _fullPath; }
+            private set
+            {
+                if (SetProperty(ref _fullPath, value))
+                {
+                    Name = Path.GetFileName(value);
+                    Type = GetFileSystemType(value);
+                }
+            }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            private set { SetProperty(ref _name, value); }
+        }
+
+        public FileSystemType Type
+        {
+            get { return _type; }
+            private set { SetProperty(ref _type, value); }
+        }
         #endregion
 
 
@@ -81,6 +68,7 @@ namespace FileManagerWindows.Models
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            source.FullPath = destination.FullPath;
         }
 
         public FileSystemInfo CreateNewName(int index, RenameSetting setting)
@@ -102,12 +90,9 @@ namespace FileManagerWindows.Models
 
             var newName = prefix + suffix + extension;
 
-            return new FileSystemInfo
-            {
-                FullPath = Path.Combine(Path.GetDirectoryName(FullPath), newName),
-                Name = newName,
-                Type = Type
-            };
+            var folder = Path.GetDirectoryName(FullPath);
+            var fullPath = folder == null ? newName : Path.Combine(folder, newName);
+            return new FileSystemInfo(fullPath);
         }
         #endregion
 

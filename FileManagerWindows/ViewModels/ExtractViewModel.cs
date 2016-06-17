@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using CB.IO.Common;
+using CB.IO.Compression;
 using FileManagerWindows.Models;
 using Prism.Commands;
 using FileSystemInfo = FileManagerWindows.Models.FileSystemInfo;
@@ -49,18 +50,28 @@ namespace FileManagerWindows.ViewModels
         {
             if (!CanExtract) return;
 
-            foreach (var entry in Entries)
+            foreach (var entry in Entries.ToArray())
             {
                 var entryPath = entry.FullPath;
                 switch (entry.Type)
                 {
                     case FileSystemType.Folder:
                         IO.MoveContent(entryPath, Path.GetDirectoryName(entryPath));
-                        if (DeleteAfterExtracted) IO.MoveFolderToRecycleBin(entryPath);
+                        if (DeleteAfterExtracted)
+                        {
+                            IO.MoveFolderToRecycleBin(entryPath);
+                            Entries.Remove(entry);
+                        }
                         break;
                     case FileSystemType.Compression:
-                        ExtractCompresstion(entry);
-                        if (DeleteAfterExtracted) IO.MoveFileToRecycleBin(entryPath);
+                        Archiver.ExtractHere(entryPath);
+                        if (DeleteAfterExtracted)
+                        {
+                            IO.MoveFileToRecycleBin(entryPath);
+                            Entries.Remove(entry);
+                        }
+                        break;
+                    case FileSystemType.File:
                         break;
                     default:
                         throw new NotSupportedException();
@@ -75,14 +86,6 @@ namespace FileManagerWindows.ViewModels
         {
             base.OnEntriesChanged(sender, e);
             NotifyPropertiesChanged(nameof(CanExtract));
-        }
-        #endregion
-
-
-        #region Implementation
-        private void ExtractCompresstion(FileSystemInfo compressionEntry)
-        {
-            // UNDONE: ExtractCompresstion
         }
         #endregion
     }

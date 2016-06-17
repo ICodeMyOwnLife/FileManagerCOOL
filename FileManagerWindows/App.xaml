@@ -4,6 +4,7 @@
                         xmlns:mae="clr-namespace:CB.WPF.MahAppsExtension;assembly=CB.WPF.MahAppsExtension"
                         xmlns:hpr="clr-namespace:FileManagerWindows.Helpers"
                         xmlns:mdl="clr-namespace:FileManagerWindows.Models"
+                        xmlns:sys="clr-namespace:System;assembly=mscorlib"
                         StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -15,13 +16,16 @@
                 <ResourceDictionary Source="Resources/IconsNonShared.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <sys:Double x:Key="ControlMinWidth">100</sys:Double>
+
             <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
 
             <hpr:FileSystemInfoTemplateSelector x:Key="FileSystemInfoTemplateSelector" />
 
             <Style x:Key="IconViewBox" TargetType="Viewbox">
-                <Setter Property="Width" Value="28" />
                 <Setter Property="Height" Value="28" />
+                <Setter Property="Margin" Value="{StaticResource NormalMargin.Right}" />
+                <Setter Property="Width" Value="28" />
             </Style>
 
             <DataTemplate x:Key="FileTemplate" DataType="mdl:FileSystemInfo">
@@ -51,7 +55,7 @@
                 </StackPanel>
             </DataTemplate>
 
-            <Style x:Key="FileListView" TargetType="ListView" BasedOn="{StaticResource ListViewStyle}">
+            <Style x:Key="FileList" TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
                 <Setter Property="ItemTemplateSelector" Value="{StaticResource FileSystemInfoTemplateSelector}" />
             </Style>
         </ResourceDictionary>

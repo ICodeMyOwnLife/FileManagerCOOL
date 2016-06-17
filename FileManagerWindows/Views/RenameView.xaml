@@ -14,28 +14,40 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="5*" MinWidth="200" />
+            <ColumnDefinition Width="3*" MinWidth="200" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Column="0" Text="Base name:" />
-            <TextBox Grid.Column="1" Text="{Binding RenameSetting.BaseName}" />
-            <TextBlock Grid.Column="2" Text="Start at:" />
-            <mah:NumericUpDown Grid.Column="3" Value="{Binding RenameSetting.StartAt}" />
-            <CheckBox Grid.Column="4" IsChecked="{Binding RenameSetting.UseMask}" Content="Use mask?" />
-        </Grid>
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Settings">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Entries}" Style="{StaticResource FileListView}" />
+                <TextBlock Grid.Column="0" Text="Base name:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
+                <TextBox Grid.Column="1"
+                         Text="{Binding RenameSetting.BaseName, UpdateSourceTrigger=PropertyChanged, Delay=300}" />
 
-        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding NewNames}" Style="{StaticResource FileListView}" />
+                <TextBlock Grid.Column="2" Text="Start at:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
+                <mah:NumericUpDown Grid.Column="3" MinWidth="{StaticResource ControlMinWidth}" TextAlignment="Center"
+                                   Value="{Binding RenameSetting.StartAt}" />
+
+                <CheckBox Grid.Column="4" IsChecked="{Binding RenameSetting.UseMask}" Content="Use mask?" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Entries">
+            <ListBox ItemsSource="{Binding Entries}" Style="{StaticResource FileList}" />
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="New names">
+            <ListBox ItemsSource="{Binding NewNames}" Style="{StaticResource FileList}" />
+        </GroupBox>
+
+        <GridSplitter Grid.Row="1" Grid.Column="1" Style="{StaticResource GridSplitterStyle.Vertical}" />
     </Grid>
 </UserControl>
