@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="FileManagerWindows.Views.RenameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance vmd:RenameViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0" Text="Base name:" />
+            <TextBox Grid.Column="1" Text="{Binding RenameSetting.BaseName}" />
+            <TextBlock Grid.Column="2" Text="Start at:" />
+            <mah:NumericUpDown Grid.Column="3" Value="{Binding RenameSetting.StartAt}" />
+            <CheckBox Grid.Column="4" IsChecked="{Binding RenameSetting.UseMask}" Content="Use mask?" />
+        </Grid>
+
+        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Entries}" Style="{StaticResource FileListView}" />
+
+        <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding NewNames}" Style="{StaticResource FileListView}" />
+    </Grid>
+</UserControl>

@@ -8,7 +8,8 @@
                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                  xmlns:prism="http://prismlibrary.com/"
                  xmlns:models="clr-namespace:FileManagerWindows.Models"
-                 xmlns:helpers="clr-namespace:FileManagerWindows.Helpers"
+                 xmlns:v="clr-namespace:FileManagerWindows.Views"
+                 xmlns:xaml="http://wpf.cb.com/xaml"
                  mc:Ignorable="d"
                  Title="MainWindow" Height="600" Width="800" Style="{StaticResource MetroWindowStyle}"
                  WindowStartupLocation="CenterScreen" AllowDrop="True">
@@ -16,41 +17,9 @@
     <Window.Resources>
         <vmd:MainViewModel x:Key="MainViewModel" />
 
-        <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
-
-        <helpers:FileSystemInfoTemplateSelector x:Key="FileSystemInfoTemplateSelector" />
-
-        <Style x:Key="IconViewBox" TargetType="Viewbox">
-            <Setter Property="Width" Value="28" />
-            <Setter Property="Height" Value="28" />
+        <Style TargetType="TabItem">
+            <Setter Property="Visibility" Value="Collapsed" />
         </Style>
-
-        <DataTemplate x:Key="FileTemplate" DataType="models:FileSystemInfo">
-            <StackPanel Orientation="Horizontal">
-                <Viewbox Style="{StaticResource IconViewBox}">
-                    <ContentControl Content="{DynamicResource appbar_page_text}" />
-                </Viewbox>
-                <TextBlock Text="{Binding Name}" />
-            </StackPanel>
-        </DataTemplate>
-
-        <DataTemplate x:Key="FolderTemplate" DataType="models:FileSystemInfo">
-            <StackPanel Orientation="Horizontal">
-                <Viewbox Style="{StaticResource IconViewBox}">
-                    <ContentControl Content="{DynamicResource appbar_folder}" />
-                </Viewbox>
-                <TextBlock Text="{Binding Name}" />
-            </StackPanel>
-        </DataTemplate>
-
-        <DataTemplate x:Key="CompressionTemplate" DataType="models:FileSystemInfo">
-            <StackPanel Orientation="Horizontal">
-                <Viewbox Style="{StaticResource IconViewBox}">
-                    <ContentControl Content="{DynamicResource appbar_archive}" />
-                </Viewbox>
-                <TextBlock Text="{Binding Name}" />
-            </StackPanel>
-        </DataTemplate>
     </Window.Resources>
 
     <Window.DataContext>
@@ -76,11 +45,16 @@
             <MenuItem Style="{StaticResource AccentMenuItemStyle}" />
         </Menu>
 
+        <TabControl Grid.Row="1" xaml:SelectorServices.SelectedItemBinding="{Binding CommandCollection.SelectedItem}">
+            <TabItem xaml:SelectorServices.SelectionBinding="{Binding CommandCollection.Collection[0]}">
+                <v:ExtractView DataContext="{Binding ExtractViewModel}" />
+            </TabItem>
 
-        <Grid Grid.Row="1">
-            <ListView ItemsSource="{Binding Entries}"
-                      ItemTemplateSelector="{StaticResource FileSystemInfoTemplateSelector}" />
-        </Grid>
+            <TabItem xaml:SelectorServices.SelectionBinding="{Binding CommandCollection.Collection[1]}">
+                <v:RenameView DataContext="{Binding RenameViewModel}" />
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Row="1" />
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -91,11 +65,6 @@
 
             <ComboBox ItemsSource="{Binding CommandCollection.CollectionView}" />
 
-
-            <CheckBox Grid.Column="1" Content="Delete after extracted"
-                      IsChecked="{Binding DeleteAfterExtracted}"
-                      Visibility="{Binding CanExtract, Converter={StaticResource VisibilityConverter}}" />
-            
             <Button Grid.Column="2" Content="Run"
                     Command="{Binding CommandCollection.SelectedItem.Command}" />
         </Grid>
