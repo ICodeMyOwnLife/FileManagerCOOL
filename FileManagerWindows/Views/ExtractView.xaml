@@ -18,7 +18,8 @@
                   Visibility="{Binding CanExtract, Converter={StaticResource VisibilityConverter}}" />
 
         <GroupBox Grid.Row="1" Header="Entries">
-            <ListBox ItemsSource="{Binding Entries}" Style="{StaticResource FileList}" />
+            <!--<ListBox ItemsSource="{Binding Entries}" Style="{StaticResource FileListStyle}" />-->
+            <StaticResource ResourceKey="FileList" />
         </GroupBox>
     </Grid>
 </UserControl>

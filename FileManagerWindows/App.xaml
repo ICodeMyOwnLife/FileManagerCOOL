@@ -1,10 +1,14 @@
 ﻿<mae:MahAppsApplication x:Class="FileManagerWindows.App"
                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
                         xmlns:mae="clr-namespace:CB.WPF.MahAppsExtension;assembly=CB.WPF.MahAppsExtension"
                         xmlns:hpr="clr-namespace:FileManagerWindows.Helpers"
                         xmlns:mdl="clr-namespace:FileManagerWindows.Models"
                         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                        xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
+                        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                        xmlns:prism="http://prismlibrary.com/"
                         StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -20,7 +24,20 @@
 
             <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
 
+            <vmd:MainViewModel x:Key="MainViewModel" />
+
+            <i:EventTrigger x:Key="DropTrigger" x:Shared="False" EventName="Drop">
+                <prism:InvokeCommandAction Command="{Binding DropCommand}" TriggerParameterPath="Data" />
+            </i:EventTrigger>
+
             <hpr:FileSystemInfoTemplateSelector x:Key="FileSystemInfoTemplateSelector" />
+
+            <ContextMenu x:Key="FileListContextMenu">
+                <MenuItem Header="Remove"
+                          Command="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.RemoveItemCommand}" />
+                <MenuItem Header="Remove all"
+                          Command="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.ClearCommand}" />
+            </ContextMenu>
 
             <Style x:Key="IconViewBox" TargetType="Viewbox">
                 <Setter Property="Height" Value="28" />
@@ -55,9 +72,19 @@
                 </StackPanel>
             </DataTemplate>
 
-            <Style x:Key="FileList" TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
+            <Style x:Key="FileListStyle" TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
+                <Setter Property="AllowDrop" Value="True" />
+                <Setter Property="ContextMenu" Value="{StaticResource FileListContextMenu}" />
                 <Setter Property="ItemTemplateSelector" Value="{StaticResource FileSystemInfoTemplateSelector}" />
+                <Setter Property="dd:DragDrop.IsDragSource" Value="True" />
+                <Setter Property="dd:DragDrop.IsDropTarget" Value="True" />
+                <Setter Property="dd:DragDrop.DragAdornerTemplateSelector"
+                        Value="{StaticResource FileSystemInfoTemplateSelector}" />
             </Style>
+
+            <ListBox x:Key="FileList" x:Shared="False"
+                     ItemsSource="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.CollectionView}"
+                     Style="{StaticResource FileListStyle}" />
         </ResourceDictionary>
     </Application.Resources>
 </mae:MahAppsApplication>

@@ -4,7 +4,6 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                 xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                  xmlns:prism="http://prismlibrary.com/"
                  xmlns:v="clr-namespace:FileManagerWindows.Views"
@@ -14,8 +13,6 @@
                  WindowStartupLocation="CenterScreen" AllowDrop="True" Icon="../Folder2.ico">
 
     <Window.Resources>
-        <vmd:MainViewModel x:Key="MainViewModel" />
-
         <Style TargetType="TabItem">
             <Setter Property="Visibility" Value="Collapsed" />
         </Style>
@@ -26,9 +23,10 @@
     </Window.DataContext>
 
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Drop">
+        <!--<i:EventTrigger EventName="Drop">
             <prism:InvokeCommandAction Command="{Binding DropCommand}" TriggerParameterPath="Data" />
-        </i:EventTrigger>
+        </i:EventTrigger>-->
+        <StaticResource ResourceKey="DropTrigger" />
     </i:Interaction.Triggers>
 
     <Grid>
@@ -44,7 +42,8 @@
             <MenuItem Style="{StaticResource AccentMenuItemStyle}" />
         </Menu>
 
-        <mah:MetroAnimatedTabControl Grid.Row="1" xaml:SelectorServices.SelectedItemBinding="{Binding CommandCollection.SelectedItem}">
+        <mah:MetroAnimatedTabControl Grid.Row="1"
+                                     xaml:SelectorServices.SelectedItemBinding="{Binding CommandCollection.SelectedItem}">
             <TabItem xaml:SelectorServices.SelectionBinding="{Binding CommandCollection.Collection[0]}">
                 <v:ExtractView DataContext="{Binding ExtractViewModel}" />
             </TabItem>
@@ -62,9 +61,11 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <ComboBox MinWidth="{StaticResource ControlMinWidth}" ItemsSource="{Binding CommandCollection.CollectionView}" />
+            <ComboBox MinWidth="{StaticResource ControlMinWidth}"
+                      ItemsSource="{Binding CommandCollection.CollectionView}" />
 
-            <Button Grid.Column="2" Content="Run" MinWidth="{StaticResource ControlMinWidth}" HorizontalAlignment="Right"
+            <Button Grid.Column="2" Content="Run" MinWidth="{StaticResource ControlMinWidth}"
+                    HorizontalAlignment="Right"
                     Command="{Binding CommandCollection.SelectedItem.Command}" />
         </Grid>
 

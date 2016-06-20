@@ -41,11 +41,12 @@
         </GroupBox>
 
         <GroupBox Grid.Row="1" Grid.Column="0" Header="Entries">
-            <ListBox ItemsSource="{Binding Entries}" Style="{StaticResource FileList}" />
+            <!--<ListBox ItemsSource="{Binding Entries}" Style="{StaticResource FileListStyle}" />-->
+            <StaticResource ResourceKey="FileList" />
         </GroupBox>
 
         <GroupBox Grid.Row="1" Grid.Column="1" Header="New names">
-            <ListBox ItemsSource="{Binding NewNames}" Style="{StaticResource FileList}" />
+            <ListBox ItemsSource="{Binding NewNames}" Style="{StaticResource FileListStyle}" />
         </GroupBox>
 
         <GridSplitter Grid.Row="1" Grid.Column="1" Style="{StaticResource GridSplitterStyle.Vertical}" />
