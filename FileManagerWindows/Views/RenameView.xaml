@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:views="clr-namespace:FileManagerWindows.Views"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance vmd:RenameViewModel}">
     <Grid>
@@ -40,10 +41,11 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="Entries">
-            <!--<ListBox ItemsSource="{Binding Entries}" Style="{StaticResource FileListStyle}" />-->
+        <!--<GroupBox Grid.Row="1" Grid.Column="0" Header="Entries">
             <StaticResource ResourceKey="FileList" />
-        </GroupBox>
+        </GroupBox>-->
+
+        <views:EntriesView Grid.Row="1" Grid.Column="0" DataContext="{StaticResource MainViewModel}" />
 
         <GroupBox Grid.Row="1" Grid.Column="1" Header="New names">
             <ListBox ItemsSource="{Binding NewNames}" Style="{StaticResource FileListStyle}" />

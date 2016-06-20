@@ -53,25 +53,6 @@ namespace FileManagerWindows.ViewModels
         #region Methods
         public void Rename()
         {
-            /*for (var i = 0; i < Entries.Count; ++i)
-            {
-                var entry = Entries[i];
-                var folder = Path.GetDirectoryName(entry.FullPath);
-                var destination = Path.Combine(folder, NewNames[i]);
-
-                switch (entry.Type)
-                {
-                    case FileSystemType.Folder:
-                        Directory.Move(entry.FullPath, destination);
-                        break;
-                    case FileSystemType.File:
-                    case FileSystemType.Compression:
-                        File.Move(entry.FullPath, destination);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }*/
             for (var i = 0; i < Entries.Count; ++i)
             {
                 FileSystemInfo.Move(Entries[i], NewNames[i]);
@@ -91,37 +72,13 @@ namespace FileManagerWindows.ViewModels
 
         #region Event Handlers
         private void RenameSetting_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            UpdateNewNames();
-        }
+            => UpdateNewNames();
         #endregion
 
 
         #region Implementation
         private void UpdateNewNames()
-        {
-            /*NewNames = Entries?.Select((fsi, i) =>
-            {
-                var baseName = BaseName ?? "";
-                var suffix = (i + StartAt).ToString();
-                var extension = Path.GetExtension(fsi.FullPath) ?? "";
-                string prefix;
-
-                if (!UseMask) prefix = baseName;
-                else
-                {
-                    var maskCharCount = 0;
-                    for (var j = baseName.Length - 1; j >= 0 && baseName[j] == MaskChar; --j, ++maskCharCount) { }
-
-                    var prefixLength = baseName.Length - Math.Min(maskCharCount, suffix.Length);
-                    prefix = baseName.Substring(0, prefixLength);
-                }
-
-                return prefix + suffix + extension;
-            }).ToArray();*/
-
-            NewNames = Entries?.Select((fsi, i) => fsi.CreateNewName(i, RenameSetting)).ToArray();
-        }
+            => NewNames = Entries?.Select((fsi, i) => fsi.CreateNewName(i, RenameSetting)).ToArray();
         #endregion
     }
 }

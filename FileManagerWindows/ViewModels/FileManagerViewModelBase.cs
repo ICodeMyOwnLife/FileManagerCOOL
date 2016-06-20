@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using CB.Model.Common;
 using CB.Model.Prism;
 using FileManagerWindows.Models;
 
@@ -9,7 +10,7 @@ namespace FileManagerWindows.ViewModels
     public class FileManagerViewModelBase: PrismViewModelBase
     {
         #region  Constructors & Destructor
-        public FileManagerViewModelBase(ObservableCollection<FileSystemInfo> entries)
+        public FileManagerViewModelBase( ObservableCollection<FileSystemInfo> entries)
         {
             Entries = entries;
             entries.CollectionChanged += OnEntriesChanged;

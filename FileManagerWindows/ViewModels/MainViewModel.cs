@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using CB.Model.Common;
 using CB.Model.Prism;
 using FileManagerWindows.Models;
 using Prism.Commands;
@@ -46,8 +45,9 @@ namespace FileManagerWindows.ViewModels
         public bool CanSort => EntryCollection.Collection.Count > 1;
         public CollectionBase<NamedCommand, List<NamedCommand>> CommandCollection { get; }
 
-        public PrismCollectionBase<FileSystemInfo, ObservableCollection<FileSystemInfo>> EntryCollection { get; } =
-            new PrismCollectionBase<FileSystemInfo, ObservableCollection<FileSystemInfo>>();
+        public PrismCollectionBase<FileSystemInfo, ExtendedObservableCollection<FileSystemInfo>> EntryCollection { get;
+        } =
+            new PrismCollectionBase<FileSystemInfo, ExtendedObservableCollection<FileSystemInfo>>();
 
         public ExtractViewModel ExtractViewModel { get; }
         public RenameViewModel RenameViewModel { get; }
@@ -62,30 +62,31 @@ namespace FileManagerWindows.ViewModels
 
             if (Keyboard.Modifiers != ModifierKeys.Control)
             {
-                EntryCollection.Clear();
+                EntryCollection.Collection.ReplaceRange(dropPaths.Select(p => new FileSystemInfo(p)));
             }
-            EntryCollection.Collection.AddRange(dropPaths
-                .Where(
-                    p => EntryCollection.Collection.All(
-                        e => !StringComparer.InvariantCultureIgnoreCase.Equals(e.FullPath, p)))
-                .Select(p => new FileSystemInfo(p)));
+            else
+            {
+                EntryCollection.Collection.AddRange(dropPaths
+                    .Where(
+                        p => EntryCollection.Collection.All(
+                            e => !StringComparer.InvariantCultureIgnoreCase.Equals(e.FullPath, p)))
+                    .Select(p => new FileSystemInfo(p)));
+            }
         }
 
         public void SortAscending()
-            => EntryCollection.Sort(e => e.Name, ListSortDirection.Ascending);
+            => EntryCollection.Collection.SortBy(e => e.Name);
 
         public void SortDescending()
-            => EntryCollection.Sort(e => e.Name, ListSortDirection.Descending);
+            => EntryCollection.Collection.SortByDescending(e => e.Name);
         #endregion
 
 
         #region Event Handlers
         private void EntryCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            NotifyPropertiesChanged(nameof(CanSort));
-        }
+            => NotifyPropertiesChanged(nameof(CanSort));
         #endregion
     }
 }
 
-// TODO: Add Sort buttons -> Sort commands
+// TODO: Add Convert, Edit subtitle feature

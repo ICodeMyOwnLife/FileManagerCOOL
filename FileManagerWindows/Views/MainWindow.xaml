@@ -5,7 +5,6 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                 xmlns:prism="http://prismlibrary.com/"
                  xmlns:v="clr-namespace:FileManagerWindows.Views"
                  xmlns:xaml="http://wpf.cb.com/xaml"
                  mc:Ignorable="d"
@@ -23,9 +22,6 @@
     </Window.DataContext>
 
     <i:Interaction.Triggers>
-        <!--<i:EventTrigger EventName="Drop">
-            <prism:InvokeCommandAction Command="{Binding DropCommand}" TriggerParameterPath="Data" />
-        </i:EventTrigger>-->
         <StaticResource ResourceKey="DropTrigger" />
     </i:Interaction.Triggers>
 

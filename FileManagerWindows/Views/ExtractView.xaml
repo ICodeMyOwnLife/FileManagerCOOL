@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
+             xmlns:views="clr-namespace:FileManagerWindows.Views"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance vmd:ExtractViewModel}">
 
@@ -17,9 +18,6 @@
                   IsChecked="{Binding DeleteAfterExtracted}"
                   Visibility="{Binding CanExtract, Converter={StaticResource VisibilityConverter}}" />
 
-        <GroupBox Grid.Row="1" Header="Entries">
-            <!--<ListBox ItemsSource="{Binding Entries}" Style="{StaticResource FileListStyle}" />-->
-            <StaticResource ResourceKey="FileList" />
-        </GroupBox>
+        <views:EntriesView Grid.Row="1" DataContext="{StaticResource MainViewModel}" />
     </Grid>
 </UserControl>

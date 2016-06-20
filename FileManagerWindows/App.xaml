@@ -81,10 +81,6 @@
                 <Setter Property="dd:DragDrop.DragAdornerTemplateSelector"
                         Value="{StaticResource FileSystemInfoTemplateSelector}" />
             </Style>
-
-            <ListBox x:Key="FileList" x:Shared="False"
-                     ItemsSource="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.CollectionView}"
-                     Style="{StaticResource FileListStyle}" />
         </ResourceDictionary>
     </Application.Resources>
 </mae:MahAppsApplication>
