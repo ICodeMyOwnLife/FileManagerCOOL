@@ -98,6 +98,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\RenameSetting.cs" />
+    <Compile Include="ViewModels\HandleViewModelBase.cs" />
     <Compile Include="Views\EntriesView.xaml.cs">
       <DependentUpon>EntriesView.xaml</DependentUpon>
     </Compile>
@@ -178,6 +179,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Libraries\Domain\CB.Subtitles\CB.Subtitles\CB.Subtitles.csproj">
+      <Project>{9965e49e-e5b4-47da-8efc-67408302de78}</Project>
+      <Name>CB.Subtitles</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Configuration\CB.Configuration.Common\CB.Configuration.Common.csproj">
       <Project>{9f2166ae-f09b-49c1-9b6d-2ee861593a73}</Project>
       <Name>CB.Configuration.Common</Name>

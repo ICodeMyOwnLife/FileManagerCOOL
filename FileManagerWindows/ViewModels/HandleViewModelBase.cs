@@ -2,7 +2,9 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using CB.Model.Prism;
 using CB.Prism.Interactivity;
+using CB.Subtitles;
 using FileManagerWindows.Models;
 
 
@@ -26,6 +28,9 @@ namespace FileManagerWindows.ViewModels
 
 
         #region  Properties & Indexers
+        public CollectionBase<string, ObservableCollection<string>> ExtensionsCollection { get; } =
+            new CollectionBase<string, ObservableCollection<string>>(new ObservableCollection<string>(new[] { "" }.Concat(Subtitle.Extensions)));
+
         public FileSystemInfo[] NewNames
         {
             get { return _newNames; }

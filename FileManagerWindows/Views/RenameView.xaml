@@ -29,6 +29,8 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Base name:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
@@ -36,10 +38,20 @@
                          Text="{Binding RenameSetting.BaseName, UpdateSourceTrigger=PropertyChanged, Delay=300}" />
 
                 <TextBlock Grid.Column="2" Text="Start at:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
-                <mah:NumericUpDown Grid.Column="3" MinWidth="{StaticResource ControlMinWidth}" TextAlignment="Center"
+                <mah:NumericUpDown Grid.Column="3" MinWidth="{DynamicResource ControlMinWidth}" TextAlignment="Center"
                                    Value="{Binding RenameSetting.StartAt}" />
 
                 <CheckBox Grid.Column="4" IsChecked="{Binding RenameSetting.UseMask}" Content="Use mask?" />
+
+                <TextBlock Grid.Column="5" Text="Extension:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
+                <ComboBox Grid.Column="6" MinWidth="{DynamicResource ControlMinWidth}" IsEditable="True"
+                          StaysOpenOnEdit="True"
+                          ItemsSource="{Binding ExtensionsCollection.CollectionView}"
+                          SelectedItem="{Binding RenameSetting.Extension}">
+                    <i:Interaction.Behaviors>
+                        <xaml:AddItemBehavior />
+                    </i:Interaction.Behaviors>
+                </ComboBox>
             </Grid>
         </GroupBox>
 
