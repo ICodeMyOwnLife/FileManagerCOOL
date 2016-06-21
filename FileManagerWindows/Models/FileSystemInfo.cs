@@ -75,7 +75,11 @@ namespace FileManagerWindows.Models
         {
             var baseName = setting.BaseName ?? "";
             var suffix = (index + setting.StartAt).ToString();
-            var extension = Type == FileSystemType.Folder ? "" : Path.GetExtension(FullPath) ?? "";
+            var extension = Type == FileSystemType.Folder
+                                ? ""
+                                : string.IsNullOrEmpty(setting.Extension)
+                                      ? Path.GetExtension(FullPath) ?? ""
+                                      : setting.Extension;
             string prefix;
 
             if (!setting.UseMask) prefix = baseName;
