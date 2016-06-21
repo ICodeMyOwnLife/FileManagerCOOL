@@ -90,3 +90,4 @@ namespace FileManagerWindows.ViewModels
 }
 
 // TODO: Add Convert, Edit subtitle feature
+// TODO: Add Confirm message
