@@ -51,7 +51,13 @@ namespace FileManagerWindows.ViewModels
 
 
         #region Implementation
-        private void DoConvert() { }
+        private void DoConvert()
+        {
+            for (var i = 0; i < Entries.Count; i++)
+            {
+                Subtitle.Convert(Entries[i].FullPath, NewNames[i].FullPath);
+            }
+        }
         #endregion
     }
 }

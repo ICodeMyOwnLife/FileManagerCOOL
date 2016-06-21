@@ -1,9 +1,9 @@
 ﻿namespace FileManagerWindows.Views
 {
-    public partial class RenameView
+    public partial class HandleView
     {
         #region  Constructors & Destructor
-        public RenameView()
+        public HandleView()
         {
             InitializeComponent();
         }

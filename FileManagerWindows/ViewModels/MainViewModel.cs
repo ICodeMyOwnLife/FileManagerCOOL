@@ -19,6 +19,7 @@ namespace FileManagerWindows.ViewModels
         public MainViewModel()
         {
             EntryCollection.CollectionChanged += EntryCollection_CollectionChanged;
+            ConvertViewModel = new ConvertViewModel(EntryCollection.Collection, ConfirmRequestProvider);
             ExtractViewModel = new ExtractViewModel(EntryCollection.Collection, ConfirmRequestProvider);
             RenameViewModel = new RenameViewModel(EntryCollection.Collection, ConfirmRequestProvider);
 
@@ -29,7 +30,8 @@ namespace FileManagerWindows.ViewModels
             CommandCollection = new CollectionBase<NamedCommand, List<NamedCommand>>(new List<NamedCommand>
             {
                 new NamedCommand("Extract", ExtractViewModel.ExtractCommand),
-                new NamedCommand("Rename", RenameViewModel.RenameCommand)
+                new NamedCommand("Rename", RenameViewModel.RenameCommand),
+                new NamedCommand("Convert", ConvertViewModel.ConvertCommand)
             });
         }
         #endregion
@@ -47,6 +49,8 @@ namespace FileManagerWindows.ViewModels
         public CollectionBase<NamedCommand, List<NamedCommand>> CommandCollection { get; }
 
         public ConfirmRequestProvider ConfirmRequestProvider { get; } = new ConfirmRequestProvider();
+
+        public ConvertViewModel ConvertViewModel { get; }
 
         public PrismCollectionBase<FileSystemInfo, ExtendedObservableCollection<FileSystemInfo>> EntryCollection { get;
         } =

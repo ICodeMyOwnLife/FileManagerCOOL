@@ -98,12 +98,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\RenameSetting.cs" />
+    <Compile Include="ViewModels\ConvertViewModel.cs" />
     <Compile Include="ViewModels\HandleViewModelBase.cs" />
     <Compile Include="Views\EntriesView.xaml.cs">
       <DependentUpon>EntriesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RenameView.xaml.cs">
-      <DependentUpon>RenameView.xaml</DependentUpon>
+    <Compile Include="Views\HandleView.xaml.cs">
+      <DependentUpon>HandleView.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -142,7 +143,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\RenameView.xaml">
+    <Page Include="Views\HandleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
