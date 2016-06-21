@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Input;
 using CB.IO.Common;
 using CB.IO.Compression;
+using CB.Prism.Interactivity;
 using FileManagerWindows.Models;
 using Prism.Commands;
 using FileSystemInfo = FileManagerWindows.Models.FileSystemInfo;
@@ -21,7 +22,8 @@ namespace FileManagerWindows.ViewModels
 
 
         #region  Constructors & Destructor
-        public ExtractViewModel(ObservableCollection<FileSystemInfo> entries): base(entries)
+        public ExtractViewModel(ObservableCollection<FileSystemInfo> entries,
+            ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
         {
             ExtractCommand = new DelegateCommand(Extract, () => CanExtract).ObservesProperty(() => CanExtract);
         }
@@ -50,6 +52,23 @@ namespace FileManagerWindows.ViewModels
         {
             if (!CanExtract) return;
 
+            ConfirmRequestProvider.Confirm("Extract", "Are you sure you want to extract all files/folders?", DoExtract);
+        }
+        #endregion
+
+
+        #region Override
+        protected override void OnEntriesChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            base.OnEntriesChanged(sender, e);
+            NotifyPropertiesChanged(nameof(CanExtract));
+        }
+        #endregion
+
+
+        #region Implementation
+        private void DoExtract()
+        {
             foreach (var entry in Entries.ToArray())
             {
                 var entryPath = entry.FullPath;
@@ -77,15 +96,6 @@ namespace FileManagerWindows.ViewModels
                         throw new NotSupportedException();
                 }
             }
-        }
-        #endregion
-
-
-        #region Override
-        protected override void OnEntriesChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            base.OnEntriesChanged(sender, e);
-            NotifyPropertiesChanged(nameof(CanExtract));
         }
         #endregion
     }

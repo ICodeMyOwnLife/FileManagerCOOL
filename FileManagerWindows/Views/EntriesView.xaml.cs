@@ -1,28 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+
 
 namespace FileManagerWindows.Views
 {
-    /// <summary>
-    /// Interaction logic for EntriesView.xaml
-    /// </summary>
-    public partial class EntriesView : UserControl
+    public partial class EntriesView
     {
+        #region  Constructors & Destructor
         public EntriesView()
         {
             InitializeComponent();
         }
+        #endregion
+
+
+        #region Dependency Properties
+        public static readonly DependencyProperty SelectedIndexProperty = DependencyProperty.Register(
+            nameof(SelectedIndex), typeof(int), typeof(EntriesView), new PropertyMetadata(-1));
+
+        public int SelectedIndex
+        {
+            get { return (int)GetValue(SelectedIndexProperty); }
+            set { SetValue(SelectedIndexProperty, value); }
+        }
+        #endregion
     }
 }

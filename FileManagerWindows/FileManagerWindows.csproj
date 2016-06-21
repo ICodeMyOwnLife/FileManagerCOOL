@@ -206,6 +206,10 @@
       <Project>{6a52cae9-6f3e-4a20-96eb-0e6116a6709c}</Project>
       <Name>CB.Model.Prism</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Prism\CB.Prism.Interactivity\CB.Prism.Interactivity.csproj">
+      <Project>{640c072b-f368-4d76-9969-9c6bfe4070d3}</Project>
+      <Name>CB.Prism.Interactivity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.WPF\CB.WPF.Common\CB.WPF.Common.csproj">
       <Project>{a9505db9-6b23-4a98-b20a-85b66bb799c4}</Project>
       <Name>CB.WPF.Common</Name>
@@ -229,6 +233,10 @@
     <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.AttachedProperties\CB.Xaml.AttachedProperties.csproj">
       <Project>{1ccb7f4e-228a-4a8e-a211-a032c9c8767b}</Project>
       <Name>CB.Xaml.AttachedProperties</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.Behaviors\CB.Xaml.Behaviors.csproj">
+      <Project>{033b6c10-b667-4b70-aa49-e61f6c8aa084}</Project>
+      <Name>CB.Xaml.Behaviors</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.Commands\CB.Xaml.Commands.csproj">
       <Project>{c5dc3209-4a92-4243-8188-adbd4fa87fc3}</Project>

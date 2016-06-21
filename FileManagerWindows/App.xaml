@@ -39,6 +39,10 @@
                           Command="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.ClearCommand}" />
             </ContextMenu>
 
+            <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
+                <Setter Property="MinWidth" Value="{StaticResource ControlMinWidth}" />
+            </Style>
+
             <Style x:Key="IconViewBox" TargetType="Viewbox">
                 <Setter Property="Height" Value="28" />
                 <Setter Property="Margin" Value="{StaticResource NormalMargin.Right}" />

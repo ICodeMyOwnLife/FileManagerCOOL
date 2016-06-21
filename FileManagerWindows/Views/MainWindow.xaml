@@ -7,6 +7,7 @@
                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                  xmlns:v="clr-namespace:FileManagerWindows.Views"
                  xmlns:xaml="http://wpf.cb.com/xaml"
+                 xmlns:prism="http://prismlibrary.com/"
                  mc:Ignorable="d"
                  Title="File Manager COOL" Height="600" Width="800" Style="{StaticResource MetroWindowStyle}"
                  WindowStartupLocation="CenterScreen" AllowDrop="True" Icon="../Folder2.ico">
@@ -23,6 +24,11 @@
 
     <i:Interaction.Triggers>
         <StaticResource ResourceKey="DropTrigger" />
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmRequestProvider.Request}">
+            <xaml:WindowTriggerAction CenterOverAssociatedObject="True" IsModal="True"
+                                      WindowType="xaml:MahAppsConfirmWindow" />
+        </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
     <Grid>
@@ -60,7 +66,7 @@
             <ComboBox MinWidth="{StaticResource ControlMinWidth}"
                       ItemsSource="{Binding CommandCollection.CollectionView}" />
 
-            <Button Grid.Column="2" Content="Run" MinWidth="{StaticResource ControlMinWidth}"
+            <Button Grid.Column="2" Content="Run"
                     HorizontalAlignment="Right"
                     Command="{Binding CommandCollection.SelectedItem.Command}" />
         </Grid>

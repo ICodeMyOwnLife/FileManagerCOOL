@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:views="clr-namespace:FileManagerWindows.Views"
+             xmlns:v="clr-namespace:FileManagerWindows.Views"
+             xmlns:xaml="http://wpf.cb.com/xaml"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance vmd:RenameViewModel}">
     <Grid>
@@ -41,14 +43,15 @@
             </Grid>
         </GroupBox>
 
-        <!--<GroupBox Grid.Row="1" Grid.Column="0" Header="Entries">
-            <StaticResource ResourceKey="FileList" />
-        </GroupBox>-->
-
-        <views:EntriesView Grid.Row="1" Grid.Column="0" DataContext="{StaticResource MainViewModel}" />
+        <v:EntriesView x:Name="entriesView" Grid.Row="1" Grid.Column="0" DataContext="{StaticResource MainViewModel}" />
 
         <GroupBox Grid.Row="1" Grid.Column="1" Header="New names">
-            <ListBox ItemsSource="{Binding NewNames}" Style="{StaticResource FileListStyle}" />
+            <ListBox ItemsSource="{Binding NewNames}" Style="{StaticResource FileListStyle}"
+                     SelectedIndex="{Binding ElementName=entriesView, Path=SelectedIndex}">
+                <i:Interaction.Behaviors>
+                    <xaml:ScrollToSelectedItemBehavior />
+                </i:Interaction.Behaviors>
+            </ListBox>
         </GroupBox>
 
         <GridSplitter Grid.Row="1" Grid.Column="1" Style="{StaticResource GridSplitterStyle.Vertical}" />

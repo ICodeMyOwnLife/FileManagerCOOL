@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using CB.Prism.Interactivity;
 using FileManagerWindows.Models;
 using Prism.Commands;
 
@@ -17,7 +18,8 @@ namespace FileManagerWindows.ViewModels
 
 
         #region  Constructors & Destructor
-        public RenameViewModel(ObservableCollection<FileSystemInfo> entries): base(entries)
+        public RenameViewModel(ObservableCollection<FileSystemInfo> entries,
+            ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
         {
             RenameSetting = new RenameSetting();
             RenameSetting.PropertyChanged += RenameSetting_PropertyChanged;
@@ -53,10 +55,9 @@ namespace FileManagerWindows.ViewModels
         #region Methods
         public void Rename()
         {
-            for (var i = 0; i < Entries.Count; ++i)
-            {
-                FileSystemInfo.Move(Entries[i], NewNames[i]);
-            }
+            if (!CanRename) return;
+
+            ConfirmRequestProvider.Confirm("Rename", "Are you sure you want to rename all files/folders?", DoRename);
         }
         #endregion
 
@@ -77,6 +78,14 @@ namespace FileManagerWindows.ViewModels
 
 
         #region Implementation
+        private void DoRename()
+        {
+            for (var i = 0; i < Entries.Count; ++i)
+            {
+                FileSystemInfo.Move(Entries[i], NewNames[i]);
+            }
+        }
+
         private void UpdateNewNames()
             => NewNames = Entries?.Select((fsi, i) => fsi.CreateNewName(i, RenameSetting)).ToArray();
         #endregion

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using CB.Model.Common;
 using CB.Model.Prism;
+using CB.Prism.Interactivity;
 using FileManagerWindows.Models;
 using Prism.Commands;
 
@@ -18,8 +19,8 @@ namespace FileManagerWindows.ViewModels
         public MainViewModel()
         {
             EntryCollection.CollectionChanged += EntryCollection_CollectionChanged;
-            ExtractViewModel = new ExtractViewModel(EntryCollection.Collection);
-            RenameViewModel = new RenameViewModel(EntryCollection.Collection);
+            ExtractViewModel = new ExtractViewModel(EntryCollection.Collection, ConfirmRequestProvider);
+            RenameViewModel = new RenameViewModel(EntryCollection.Collection, ConfirmRequestProvider);
 
             DropCommand = new DelegateCommand<IDataObject>(Drop);
             SortAscendingCommand = new DelegateCommand(SortAscending, () => CanSort).ObservesProperty(() => CanSort);
@@ -44,6 +45,8 @@ namespace FileManagerWindows.ViewModels
         #region  Properties & Indexers
         public bool CanSort => EntryCollection.Collection.Count > 1;
         public CollectionBase<NamedCommand, List<NamedCommand>> CommandCollection { get; }
+
+        public ConfirmRequestProvider ConfirmRequestProvider { get; } = new ConfirmRequestProvider();
 
         public PrismCollectionBase<FileSystemInfo, ExtendedObservableCollection<FileSystemInfo>> EntryCollection { get;
         } =
@@ -89,5 +92,6 @@ namespace FileManagerWindows.ViewModels
     }
 }
 
+
 // TODO: Add Convert, Edit subtitle feature
-// TODO: Add Confirm message
+// TODO: Handle IOException, name conflict
