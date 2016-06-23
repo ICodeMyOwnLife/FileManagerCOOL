@@ -184,6 +184,14 @@
       <Project>{9965e49e-e5b4-47da-8efc-67408302de78}</Project>
       <Name>CB.Subtitles</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Application\CB.Application.SingleInstanceApplication\CB.Application.SingleInstanceApplication.csproj">
+      <Project>{60475837-9675-4588-b662-b1cc09ed96b9}</Project>
+      <Name>CB.Application.SingleInstanceApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Application\CB.Application.WindowStartup\CB.Application.WindowStartup.csproj">
+      <Project>{8ab86edb-e6ec-4936-ba55-229ee2d898e3}</Project>
+      <Name>CB.Application.WindowStartup</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Configuration\CB.Configuration.Common\CB.Configuration.Common.csproj">
       <Project>{9f2166ae-f09b-49c1-9b6d-2ee861593a73}</Project>
       <Name>CB.Configuration.Common</Name>
