@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using System.Windows.Navigation;
 using CB.Application.SingleInstanceApplication;
 using FileManagerWindows.ViewModels;
-using FileManagerWindows.Views;
 
 
 namespace FileManagerWindows
 {
-    public partial class App: IProcessArgs, IApplication
+    /*public partial class App: IProcessArgs, IApplication
     {
         #region Fields
         private readonly SortedSet<string> _files = new SortedSet<string>(StringComparer.InvariantCultureIgnoreCase);
@@ -43,6 +43,40 @@ namespace FileManagerWindows
             _mainViewModel?.Process(_files, args[1]);
             _window?.Activate();
             _lastProcess = now;
+        }
+        #endregion
+    }*/
+
+    public partial class App: IProcessArgs, IApplication
+    {
+        #region Fields
+        private string[] _args;
+        #endregion
+
+
+        #region Methods
+        public void ProcessArgs(string[] args)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+
+        #region Override
+        protected override void OnLoadCompleted(NavigationEventArgs e)
+        {
+            base.OnLoadCompleted(e);
+            var mainViewModel = FindResource("MainViewModel") as MainViewModel;
+            if (mainViewModel != null && _args != null && _args.Length > 1)
+            {
+                mainViewModel.Process(_args.Take(_args.Length - 1), _args.Last());
+            }
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            _args = e.Args;
         }
         #endregion
     }

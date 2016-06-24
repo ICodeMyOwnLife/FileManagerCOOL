@@ -37,7 +37,7 @@
     <ApplicationIcon>Folder2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>FileManagerWindows.Startup</StartupObject>
+    <StartupObject>FileManagerWindows.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=0.1.4.3, Culture=neutral, PublicKeyToken=d19974ea350ccea1, processorArchitecture=MSIL">
