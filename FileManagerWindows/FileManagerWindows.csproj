@@ -102,8 +102,8 @@
     </ApplicationDefinition>
     <Compile Include="Models\RenameSetting.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\ConvertViewModel.cs" />
-    <Compile Include="ViewModels\HandleViewModelBase.cs" />
+    <Compile Include="ViewModels\ConvertNameViewModel.cs" />
+    <Compile Include="ViewModels\HandleNameViewModelBase.cs" />
     <Compile Include="Views\EntriesView.xaml.cs">
       <DependentUpon>EntriesView.xaml</DependentUpon>
     </Compile>
@@ -139,7 +139,7 @@
     <Compile Include="ViewModels\FileManagerViewModelBase.cs" />
     <Compile Include="ViewModels\MainDesignViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\RenameViewModel.cs" />
+    <Compile Include="ViewModels\RenameNameViewModel.cs" />
     <Compile Include="Views\ExtractView.xaml.cs">
       <DependentUpon>ExtractView.xaml</DependentUpon>
     </Compile>

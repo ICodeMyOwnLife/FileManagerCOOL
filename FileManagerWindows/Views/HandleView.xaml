@@ -9,7 +9,7 @@
              xmlns:xaml="http://wpf.cb.com/xaml"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance vmd:RenameViewModel}">
+             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance vmd:RenameNameViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

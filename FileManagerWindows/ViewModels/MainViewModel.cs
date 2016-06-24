@@ -20,9 +20,9 @@ namespace FileManagerWindows.ViewModels
         public MainViewModel()
         {
             EntryCollection.CollectionChanged += EntryCollection_CollectionChanged;
-            ConvertViewModel = new ConvertViewModel(EntryCollection.Collection, ConfirmRequestProvider);
+            ConvertNameViewModel = new ConvertNameViewModel(EntryCollection.Collection, ConfirmRequestProvider);
             ExtractViewModel = new ExtractViewModel(EntryCollection.Collection, ConfirmRequestProvider);
-            RenameViewModel = new RenameViewModel(EntryCollection.Collection, ConfirmRequestProvider);
+            RenameNameViewModel = new RenameNameViewModel(EntryCollection.Collection, ConfirmRequestProvider);
 
             DropCommand = new DelegateCommand<IDataObject>(Drop);
             SortAscendingCommand = new DelegateCommand(SortAscending, () => CanSort).ObservesProperty(() => CanSort);
@@ -31,8 +31,8 @@ namespace FileManagerWindows.ViewModels
             CommandCollection = new CollectionBase<NamedCommand, List<NamedCommand>>(new List<NamedCommand>
             {
                 new NamedCommand("Extract", ExtractViewModel.ExtractCommand),
-                new NamedCommand("Rename", RenameViewModel.RenameCommand),
-                new NamedCommand("Convert", ConvertViewModel.ConvertCommand)
+                new NamedCommand("Rename", RenameNameViewModel.RenameCommand),
+                new NamedCommand("Convert", ConvertNameViewModel.ConvertCommand)
             });
         }
         #endregion
@@ -51,14 +51,14 @@ namespace FileManagerWindows.ViewModels
 
         public ConfirmRequestProvider ConfirmRequestProvider { get; } = new ConfirmRequestProvider();
 
-        public ConvertViewModel ConvertViewModel { get; }
+        public ConvertNameViewModel ConvertNameViewModel { get; }
 
         public PrismCollectionBase<FileSystemInfo, ExtendedObservableCollection<FileSystemInfo>> EntryCollection { get;
         } =
             new PrismCollectionBase<FileSystemInfo, ExtendedObservableCollection<FileSystemInfo>>();
 
         public ExtractViewModel ExtractViewModel { get; }
-        public RenameViewModel RenameViewModel { get; }
+        public RenameNameViewModel RenameNameViewModel { get; }
         #endregion
 
 

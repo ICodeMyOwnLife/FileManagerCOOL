@@ -10,7 +10,7 @@ using FileManagerWindows.Models;
 
 namespace FileManagerWindows.ViewModels
 {
-    public class HandleViewModelBase: FileManagerViewModelBase
+    public class HandleNameViewModelBase: FileManagerViewModelBase
     {
         #region Fields
         private FileSystemInfo[] _newNames;
@@ -18,7 +18,7 @@ namespace FileManagerWindows.ViewModels
 
 
         #region  Constructors & Destructor
-        public HandleViewModelBase(ObservableCollection<FileSystemInfo> entries,
+        public HandleNameViewModelBase(ObservableCollection<FileSystemInfo> entries,
             ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
         {
             RenameSetting = new RenameSetting();

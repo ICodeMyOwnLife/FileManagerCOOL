@@ -51,11 +51,11 @@
             </TabItem>
 
             <TabItem xaml:SelectorServices.SelectionBinding="{Binding CommandCollection.Collection[1]}">
-                <v:HandleView DataContext="{Binding RenameViewModel}" />
+                <v:HandleView DataContext="{Binding RenameNameViewModel}" />
             </TabItem>
 
             <TabItem xaml:SelectorServices.SelectionBinding="{Binding CommandCollection.Collection[2]}">
-                <v:HandleView DataContext="{Binding ConvertViewModel}" />
+                <v:HandleView DataContext="{Binding ConvertNameViewModel}" />
             </TabItem>
         </mah:MetroAnimatedTabControl>
         <Grid Grid.Row="1" />
