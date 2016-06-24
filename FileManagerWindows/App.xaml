@@ -8,8 +8,7 @@
                         xmlns:sys="clr-namespace:System;assembly=mscorlib"
                         xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
                         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                        xmlns:prism="http://prismlibrary.com/"
-                        StartupUri="Views/MainWindow.xaml">
+                        xmlns:prism="http://prismlibrary.com/">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

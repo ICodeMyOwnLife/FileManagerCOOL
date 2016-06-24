@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using CB.Application.SingleInstanceApplication;
 using CB.Model.Common;
 using CB.Model.Prism;
 using CB.Prism.Interactivity;
@@ -13,7 +14,7 @@ using Prism.Commands;
 
 namespace FileManagerWindows.ViewModels
 {
-    public class MainViewModel: PrismViewModelBase
+    public class MainViewModel: PrismViewModelBase, IProcessArgs
     {
         #region  Constructors & Destructor
         public MainViewModel()
@@ -92,6 +93,14 @@ namespace FileManagerWindows.ViewModels
         #region Event Handlers
         private void EntryCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
             => NotifyPropertiesChanged(nameof(CanSort));
+        #endregion
+
+
+        #region Implementation
+        void IProcessArgs.ProcessArgs(string[] args)
+        {
+            MessageBox.Show($"{args.Length}:\n{string.Join("\n", args)}");
+        }
         #endregion
     }
 }

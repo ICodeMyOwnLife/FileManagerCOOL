@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using CB.Application.ContextMenuCommands;
+using FileManagerParameters;
 
 
 namespace FileManagerCommandSetup
@@ -13,7 +14,9 @@ namespace FileManagerCommandSetup
             CommandCategories.AllDirectories | CommandCategories.AllFiles;
 
         private const string COMMAND_NAME = "File Manager COOL";
-        private readonly string[] _args = new string[0];
+        private const string CONVERT_NAME = "Convert";
+        private const string EXTRACT_NAME = "Extract";
+        private const string RENAME_NAME = "Rename";
         #endregion
 
 
@@ -27,10 +30,26 @@ namespace FileManagerCommandSetup
 
         #region Event Handlers
         private void CmdAdd_OnClick(object sender, RoutedEventArgs e)
-            => ContextMenuCommand.AddCommand(COMMAND_CATEGORIES, COMMAND_NAME, txtPath.Text, true, true, _args);
+        {
+            var appPath = txtPath.Text;
+            ContextMenuCommandManager.AddCommand(COMMAND_CATEGORIES, new CascadingContextMenuCommandItem
+            {
+                Name = COMMAND_NAME,
+                Icon = ContextMenuCommandIcon.FromAppPath(appPath),
+                SubCommands = new ContextMenuCommandItem[]
+                {
+                    ContextMenuCommandItem.FromAppPath(EXTRACT_NAME, appPath, true, true,
+                        FileManagerParameter.EXTRACT_ARGS),
+                    ContextMenuCommandItem.FromAppPath(RENAME_NAME, appPath, true, true,
+                        FileManagerParameter.RENAME_ARGS),
+                    ContextMenuCommandItem.FromAppPath(CONVERT_NAME, appPath, true, true,
+                        FileManagerParameter.CONVERT_ARGS),
+                }
+            });
+        }
 
         private void CmdRemove_OnClick(object sender, RoutedEventArgs e)
-            => ContextMenuCommand.RemoveCommand(COMMAND_CATEGORIES, COMMAND_NAME);
+            => ContextMenuCommandManager.RemoveCommand(COMMAND_CATEGORIES, COMMAND_NAME);
 
         private void OnDrop(object sender, DragEventArgs e)
             => txtPath.Text = (e.Data.GetData(DataFormats.FileDrop) as string[])?[0];

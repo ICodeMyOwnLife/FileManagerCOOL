@@ -103,6 +103,10 @@
       <Project>{57af56f3-15ac-4f4e-8952-417d21a67236}</Project>
       <Name>CB.Application.ContextMenuCommands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FileManagerParameters\FileManagerParameters.csproj">
+      <Project>{2B29DD81-8BB6-481C-8E67-900952312440}</Project>
+      <Name>FileManagerParameters</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

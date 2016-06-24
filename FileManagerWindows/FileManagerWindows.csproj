@@ -36,6 +36,9 @@
   <PropertyGroup>
     <ApplicationIcon>Folder2.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>FileManagerWindows.Startup</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GongSolutions.Wpf.DragDrop, Version=0.1.4.3, Culture=neutral, PublicKeyToken=d19974ea350ccea1, processorArchitecture=MSIL">
       <HintPath>..\packages\gong-wpf-dragdrop.0.1.4.3\lib\net40\GongSolutions.Wpf.DragDrop.dll</HintPath>
@@ -98,6 +101,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\RenameSetting.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ConvertViewModel.cs" />
     <Compile Include="ViewModels\HandleViewModelBase.cs" />
     <Compile Include="Views\EntriesView.xaml.cs">
@@ -259,6 +263,10 @@
     <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.ValueConverters\CB.Xaml.ValueConverters.csproj">
       <Project>{3c46f9a4-7a8b-4588-872f-60b36e471fc5}</Project>
       <Name>CB.Xaml.ValueConverters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileManagerParameters\FileManagerParameters.csproj">
+      <Project>{2b29dd81-8bb6-481c-8e67-900952312440}</Project>
+      <Name>FileManagerParameters</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
