@@ -14,9 +14,9 @@ namespace FileManagerCommandSetup
             CommandCategories.AllDirectories | CommandCategories.AllFiles;
 
         private const string COMMAND_NAME = "File Manager COOL";
-        private const string CONVERT_NAME = "Convert";
-        private const string EXTRACT_NAME = "Extract";
-        private const string RENAME_NAME = "Rename";
+        private const string CONVERT_NAME = "Convert...";
+        private const string EXTRACT_NAME = "Extract...";
+        private const string RENAME_NAME = "Rename...";
         #endregion
 
 

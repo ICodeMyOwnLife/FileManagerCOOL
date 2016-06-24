@@ -115,7 +115,7 @@ namespace FileManagerWindows.Models
             {
                 case ".zip":
                 case ".rar":
-                case ".7zip":
+                case ".7z":
                 case ".tar":
                     return FileSystemType.Compression;
                 default:

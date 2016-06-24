@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
+using CB.Model.Prism;
 using CB.Prism.Interactivity;
 using FileManagerWindows.Models;
 using Prism.Commands;
@@ -14,13 +14,14 @@ namespace FileManagerWindows.ViewModels
         public RenameNameViewModel(ObservableCollection<FileSystemInfo> entries,
             ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
         {
-            RenameCommand = new DelegateCommand(Rename, () => CanRename).ObservesProperty(() => CanRename);
+            RenameCommand = new NamedCommand("Rename",
+                new DelegateCommand(Rename, () => CanRename).ObservesProperty(() => CanRename));
         }
         #endregion
 
 
         #region  Commands
-        public ICommand RenameCommand { get; }
+        public NamedCommand RenameCommand { get; }
         #endregion
 
 

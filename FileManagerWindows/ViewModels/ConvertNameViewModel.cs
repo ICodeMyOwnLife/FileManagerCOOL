@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Windows.Input;
+using CB.Model.Prism;
 using CB.Prism.Interactivity;
 using CB.Subtitles;
 using FileManagerWindows.Models;
@@ -16,13 +16,14 @@ namespace FileManagerWindows.ViewModels
         public ConvertNameViewModel(ObservableCollection<FileSystemInfo> entries,
             ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
         {
-            ConvertCommand = new DelegateCommand(Convert, () => CanConvert).ObservesProperty(() => CanConvert);
+            ConvertCommand = new NamedCommand("Convert",
+                new DelegateCommand(Convert, () => CanConvert).ObservesProperty(() => CanConvert));
         }
         #endregion
 
 
         #region  Commands
-        public ICommand ConvertCommand { get; }
+        public NamedCommand ConvertCommand { get; }
         #endregion
 
 
