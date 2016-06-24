@@ -4,17 +4,17 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using CB.Application.SingleInstanceApplication;
 using CB.Model.Common;
 using CB.Model.Prism;
 using CB.Prism.Interactivity;
+using FileManagerParameters;
 using FileManagerWindows.Models;
 using Prism.Commands;
 
 
 namespace FileManagerWindows.ViewModels
 {
-    public class MainViewModel: PrismViewModelBase, IProcessArgs
+    public class MainViewModel: PrismViewModelBase
     {
         #region  Constructors & Destructor
         public MainViewModel()
@@ -30,9 +30,9 @@ namespace FileManagerWindows.ViewModels
 
             CommandCollection = new CollectionBase<NamedCommand, List<NamedCommand>>(new List<NamedCommand>
             {
-                new NamedCommand("Extract", ExtractViewModel.ExtractCommand),
-                new NamedCommand("Rename", RenameViewModel.RenameCommand),
-                new NamedCommand("Convert", ConvertViewModel.ConvertCommand)
+                ExtractViewModel.ExtractCommand,
+                RenameViewModel.RenameCommand,
+                ConvertViewModel.ConvertCommand
             });
         }
         #endregion
@@ -74,11 +74,25 @@ namespace FileManagerWindows.ViewModels
             }
             else
             {
-                EntryCollection.Collection.AddRange(dropPaths
-                    .Where(
-                        p => EntryCollection.Collection.All(
-                            e => !StringComparer.InvariantCultureIgnoreCase.Equals(e.FullPath, p)))
-                    .Select(p => new FileSystemInfo(p)));
+                DropPaths(dropPaths);
+            }
+        }
+
+        public void Process(IEnumerable<string> paths, string command)
+        {
+            // ReSharper disable once RedundantArgumentDefaultValue
+            DropPaths(paths, true);
+            switch (command)
+            {
+                case FileManagerParameter.CONVERT_ARGS:
+                    CommandCollection.Select(ConvertViewModel.ConvertCommand);
+                    break;
+                case FileManagerParameter.EXTRACT_ARGS:
+                    CommandCollection.Select(ExtractViewModel.ExtractCommand);
+                    break;
+                case FileManagerParameter.RENAME_ARGS:
+                    CommandCollection.Select(RenameViewModel.RenameCommand);
+                    break;
             }
         }
 
@@ -97,9 +111,20 @@ namespace FileManagerWindows.ViewModels
 
 
         #region Implementation
-        void IProcessArgs.ProcessArgs(string[] args)
+        private void DropPaths(IEnumerable<string> paths, bool replace = true)
         {
-            MessageBox.Show($"{args.Length}:\n{string.Join("\n", args)}");
+            var entries = paths.Where(
+                p => EntryCollection.Collection.All(
+                    e => !StringComparer.InvariantCultureIgnoreCase.Equals(e.FullPath, p)))
+                               .Select(p => new FileSystemInfo(p));
+            if (replace)
+            {
+                EntryCollection.Collection.ReplaceRange(entries);
+            }
+            else
+            {
+                EntryCollection.Collection.AddRange(entries);
+            }
         }
         #endregion
     }

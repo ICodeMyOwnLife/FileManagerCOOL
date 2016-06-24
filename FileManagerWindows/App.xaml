@@ -79,6 +79,7 @@
                 <Setter Property="AllowDrop" Value="True" />
                 <Setter Property="ContextMenu" Value="{StaticResource FileListContextMenu}" />
                 <Setter Property="ItemTemplateSelector" Value="{StaticResource FileSystemInfoTemplateSelector}" />
+                <Setter Property="Margin" Value="0" />
                 <Setter Property="dd:DragDrop.IsDragSource" Value="True" />
                 <Setter Property="dd:DragDrop.IsDropTarget" Value="True" />
                 <Setter Property="dd:DragDrop.DragAdornerTemplateSelector"

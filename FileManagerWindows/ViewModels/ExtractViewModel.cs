@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using System.Windows.Input;
 using CB.IO.Common;
 using CB.IO.Compression;
+using CB.Model.Prism;
 using CB.Prism.Interactivity;
 using FileManagerWindows.Models;
 using Prism.Commands;
@@ -25,13 +25,14 @@ namespace FileManagerWindows.ViewModels
         public ExtractViewModel(ObservableCollection<FileSystemInfo> entries,
             ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
         {
-            ExtractCommand = new DelegateCommand(Extract, () => CanExtract).ObservesProperty(() => CanExtract);
+            ExtractCommand = new NamedCommand("Extract",
+                new DelegateCommand(Extract, () => CanExtract).ObservesProperty(() => CanExtract));
         }
         #endregion
 
 
         #region  Commands
-        public ICommand ExtractCommand { get; }
+        public NamedCommand ExtractCommand { get; }
         #endregion
 
 
