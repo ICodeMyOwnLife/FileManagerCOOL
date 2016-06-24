@@ -1,4 +1,6 @@
 ﻿using System;
+using System.CodeDom.Compiler;
+using System.Diagnostics;
 using CB.Application.SingleInstanceApplication;
 
 
@@ -8,6 +10,8 @@ namespace FileManagerWindows
     {
         #region Implementation
         [STAThread]
+        [DebuggerNonUserCode]
+        [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
         static void Main(string[] args)
         {
             var startup = new Startup();
