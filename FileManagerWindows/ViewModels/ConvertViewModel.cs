@@ -10,10 +10,10 @@ using Prism.Commands;
 
 namespace FileManagerWindows.ViewModels
 {
-    public class ConvertNameViewModel: HandleNameViewModelBase
+    public class ConvertViewModel: HandleNameViewModelBase
     {
         #region  Constructors & Destructor
-        public ConvertNameViewModel(ObservableCollection<FileSystemInfo> entries,
+        public ConvertViewModel(ObservableCollection<FileSystemInfo> entries,
             ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
         {
             ConvertCommand = new NamedCommand("Convert",

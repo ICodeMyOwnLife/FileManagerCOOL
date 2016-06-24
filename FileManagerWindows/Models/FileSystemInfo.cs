@@ -71,7 +71,7 @@ namespace FileManagerWindows.Models
             source.FullPath = destination.FullPath;
         }
 
-        public FileSystemInfo CreateNewName(int index, RenameSetting setting)
+        public FileSystemInfo CreateNewName(int index, FileRenameSetting setting)
         {
             var baseName = setting.BaseName ?? "";
             var suffix = (index + setting.StartAt).ToString();

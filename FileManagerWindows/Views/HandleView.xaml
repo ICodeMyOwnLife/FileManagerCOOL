@@ -9,7 +9,7 @@
              xmlns:xaml="http://wpf.cb.com/xaml"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance vmd:RenameNameViewModel}">
+             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance vmd:RenameViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -35,19 +35,19 @@
 
                 <TextBlock Grid.Column="0" Text="Base name:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
                 <TextBox Grid.Column="1"
-                         Text="{Binding RenameSetting.BaseName, UpdateSourceTrigger=PropertyChanged, Delay=300}" />
+                         Text="{Binding FileRenameSetting.BaseName, UpdateSourceTrigger=PropertyChanged, Delay=300}" />
 
                 <TextBlock Grid.Column="2" Text="Start at:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
                 <mah:NumericUpDown Grid.Column="3" MinWidth="{DynamicResource ControlMinWidth}" TextAlignment="Center"
-                                   Value="{Binding RenameSetting.StartAt}" />
+                                   Value="{Binding FileRenameSetting.StartAt}" />
 
-                <CheckBox Grid.Column="4" IsChecked="{Binding RenameSetting.UseMask}" Content="Use mask?" />
+                <CheckBox Grid.Column="4" IsChecked="{Binding FileRenameSetting.UseMask}" Content="Use mask?" />
 
                 <TextBlock Grid.Column="5" Text="Extension:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
                 <ComboBox Grid.Column="6" MinWidth="{DynamicResource ControlMinWidth}" IsEditable="True"
                           StaysOpenOnEdit="True"
                           ItemsSource="{Binding ExtensionsCollection.CollectionView}"
-                          SelectedItem="{Binding RenameSetting.Extension}">
+                          SelectedItem="{Binding FileRenameSetting.Extension}">
                     <i:Interaction.Behaviors>
                         <xaml:AddItemBehavior />
                     </i:Interaction.Behaviors>

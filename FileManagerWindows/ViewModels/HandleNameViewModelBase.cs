@@ -10,6 +10,14 @@ using FileManagerWindows.Models;
 
 namespace FileManagerWindows.ViewModels
 {
+    public class RenameImageViewModel: HandleNameViewModelBase
+    {
+        public RenameImageViewModel(ObservableCollection<FileSystemInfo> entries,
+            ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
+        {
+            
+        }
+    }
     public class HandleNameViewModelBase: FileManagerViewModelBase
     {
         #region Fields
@@ -21,8 +29,8 @@ namespace FileManagerWindows.ViewModels
         public HandleNameViewModelBase(ObservableCollection<FileSystemInfo> entries,
             ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
         {
-            RenameSetting = new RenameSetting();
-            RenameSetting.PropertyChanged += RenameSetting_PropertyChanged;
+            FileRenameSetting = new FileRenameSetting();
+            FileRenameSetting.PropertyChanged += RenameSetting_PropertyChanged;
         }
         #endregion
 
@@ -37,7 +45,7 @@ namespace FileManagerWindows.ViewModels
             private set { SetProperty(ref _newNames, value); }
         }
 
-        public RenameSetting RenameSetting { get; }
+        public FileRenameSetting FileRenameSetting { get; }
         #endregion
 
 
@@ -58,7 +66,7 @@ namespace FileManagerWindows.ViewModels
 
         #region Implementation
         protected virtual void UpdateNewNames()
-            => NewNames = Entries?.Select((fsi, i) => fsi.CreateNewName(i, RenameSetting)).ToArray();
+            => NewNames = Entries?.Select((fsi, i) => fsi.CreateNewName(i, FileRenameSetting)).ToArray();
         #endregion
     }
 }

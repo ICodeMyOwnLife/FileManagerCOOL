@@ -8,10 +8,10 @@ using Prism.Commands;
 
 namespace FileManagerWindows.ViewModels
 {
-    public class RenameNameViewModel: HandleNameViewModelBase
+    public class RenameViewModel: HandleNameViewModelBase
     {
         #region  Constructors & Destructor
-        public RenameNameViewModel(ObservableCollection<FileSystemInfo> entries,
+        public RenameViewModel(ObservableCollection<FileSystemInfo> entries,
             ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
         {
             RenameCommand = new NamedCommand("Rename",
