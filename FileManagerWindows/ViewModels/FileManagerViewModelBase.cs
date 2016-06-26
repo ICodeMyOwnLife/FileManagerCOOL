@@ -1,9 +1,8 @@
-using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using CB.Model.Prism;
 using CB.Prism.Interactivity;
-using FileManagerWindows.Models;
+using FileManagerModels;
 
 
 namespace FileManagerWindows.ViewModels

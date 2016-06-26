@@ -7,9 +7,9 @@ using CB.IO.Common;
 using CB.IO.Compression;
 using CB.Model.Prism;
 using CB.Prism.Interactivity;
-using FileManagerWindows.Models;
+using FileManagerModels;
 using Prism.Commands;
-using FileSystemInfo = FileManagerWindows.Models.FileSystemInfo;
+using FileSystemInfo = FileManagerModels.FileSystemInfo;
 
 
 namespace FileManagerWindows.ViewModels
@@ -37,8 +37,7 @@ namespace FileManagerWindows.ViewModels
 
 
         #region  Properties & Indexers
-        public bool CanExtract
-            => Entries.Any(f => f.Type == FileSystemType.Compression || f.Type == FileSystemType.Folder);
+        public bool CanExtract => Entries.All(e => e.Type == FileSystemType.Compression || e.Type == FileSystemType.Folder);
 
         public bool DeleteAfterExtracted
         {

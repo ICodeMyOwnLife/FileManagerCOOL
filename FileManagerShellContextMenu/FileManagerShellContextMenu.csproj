@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Apex.WinForms, Version=1.6.0.0, Culture=neutral, PublicKeyToken=98d06957926c086d, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\Apex.WinForms.dll</HintPath>
@@ -39,7 +42,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpShell, Version=2.2.0.0, Culture=neutral, PublicKeyToken=f14dc899472fe6fb, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpShellTools.2.2.0.0\lib\SharpShell.dll</HintPath>
+      <HintPath>..\packages\SharpShell.2.2.0.0\lib\net40\SharpShell.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="srm, Version=2.2.0.0, Culture=neutral, PublicKeyToken=68bd4561cc3495fc, processorArchitecture=MSIL">
@@ -72,32 +75,35 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\convert.ico" />
+    <ProjectReference Include="..\FileManagerModels\FileManagerModels.csproj">
+      <Project>{dd5cc571-8cd9-4630-bdd4-58a6c78d86d8}</Project>
+      <Name>FileManagerModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileManagerParameters\FileManagerParameters.csproj">
+      <Project>{2B29DD81-8BB6-481C-8E67-900952312440}</Project>
+      <Name>FileManagerParameters</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\extract.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\rename.ico" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\convert.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\extract.png" />
+    <None Include="Resources\image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\filemanager.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\rename.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FileManagerParameters\FileManagerParameters.csproj">
-      <Project>{2B29DD81-8BB6-481C-8E67-900952312440}</Project>
-      <Name>FileManagerParameters</Name>
-    </ProjectReference>
+    <None Include="Resources\extract.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

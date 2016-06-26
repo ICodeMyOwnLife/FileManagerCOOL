@@ -39,11 +39,11 @@ namespace FileManagerCommandSetup
                 SubCommands = new ContextMenuCommandItem[]
                 {
                     ContextMenuCommandItem.FromAppPath(EXTRACT_NAME, appPath, true, true,
-                        FileManagerParameter.EXTRACT_ARGS),
+                        FileManagerParameter.EXTRACT_CMD),
                     ContextMenuCommandItem.FromAppPath(RENAME_NAME, appPath, true, true,
-                        FileManagerParameter.RENAME_ARGS),
+                        FileManagerParameter.RENAME_FILES_CMD),
                     ContextMenuCommandItem.FromAppPath(CONVERT_NAME, appPath, true, true,
-                        FileManagerParameter.CONVERT_ARGS),
+                        FileManagerParameter.CONVERT_CMD),
                 }
             });
         }

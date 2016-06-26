@@ -1,4 +1,4 @@
-﻿namespace FileManagerWindows.Models
+﻿namespace FileManagerModels
 {
     public class FileRenameSetting: RenameSettingBase
     {
@@ -13,7 +13,7 @@
         #region  Constructors & Destructor
         public FileRenameSetting()
         {
-            _baseName = $"{DEFAULT_NEW_NAME}{DEFAULT_MASK_CHAR}{DEFAULT_MASK_CHAR}";
+            BaseName = $"{DEFAULT_NEW_NAME}{DEFAULT_MASK_CHAR}{DEFAULT_MASK_CHAR}";
         }
         #endregion
 

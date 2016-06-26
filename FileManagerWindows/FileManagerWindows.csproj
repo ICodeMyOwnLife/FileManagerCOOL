@@ -65,6 +65,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -79,6 +87,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.3.0-ALPHA162\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -100,17 +109,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\ImageRenameSetting.cs" />
-    <Compile Include="Models\FileRenameSetting.cs" />
-    <Compile Include="Models\RenameSettingBase.cs" />
-    <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ConvertViewModel.cs" />
     <Compile Include="ViewModels\HandleNameViewModelBase.cs" />
+    <Compile Include="ViewModels\RenameImageViewModel.cs" />
     <Compile Include="Views\EntriesView.xaml.cs">
       <DependentUpon>EntriesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HandleView.xaml.cs">
       <DependentUpon>HandleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RenameImageView.xaml.cs">
+      <DependentUpon>RenameImageView.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -141,7 +150,7 @@
     <Compile Include="ViewModels\FileManagerViewModelBase.cs" />
     <Compile Include="ViewModels\MainDesignViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\RenameViewModel.cs" />
+    <Compile Include="ViewModels\RenameFileViewModel.cs" />
     <Compile Include="Views\ExtractView.xaml.cs">
       <DependentUpon>ExtractView.xaml</DependentUpon>
     </Compile>
@@ -153,10 +162,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\RenameImageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Templates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\FileSystemInfo.cs" />
-    <Compile Include="Models\FileSystemType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -262,9 +277,17 @@
       <Project>{c5dc3209-4a92-4243-8188-adbd4fa87fc3}</Project>
       <Name>CB.Xaml.Commands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.Common\CB.Xaml.Common.csproj">
+      <Project>{e506d3ed-d4e1-4830-907a-0d385bf5972b}</Project>
+      <Name>CB.Xaml.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Libraries\DotNet\CB.Xaml\CB.Xaml.ValueConverters\CB.Xaml.ValueConverters.csproj">
       <Project>{3c46f9a4-7a8b-4588-872f-60b36e471fc5}</Project>
       <Name>CB.Xaml.ValueConverters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileManagerModels\FileManagerModels.csproj">
+      <Project>{dd5cc571-8cd9-4630-bdd4-58a6c78d86d8}</Project>
+      <Name>FileManagerModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\FileManagerParameters\FileManagerParameters.csproj">
       <Project>{2b29dd81-8bb6-481c-8e67-900952312440}</Project>

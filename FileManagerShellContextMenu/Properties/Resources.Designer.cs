@@ -110,6 +110,26 @@ namespace FileManagerShellContextMenu.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap filemanager {
+            get {
+                object obj = ResourceManager.GetObject("filemanager", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap image {
+            get {
+                object obj = ResourceManager.GetObject("image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap rename {
             get {
                 object obj = ResourceManager.GetObject("rename", resourceCulture);
@@ -118,11 +138,20 @@ namespace FileManagerShellContextMenu.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rename.
+        ///   Looks up a localized string similar to Rename Files.
         /// </summary>
-        public static string RENAME_S {
+        public static string RENAME_FILES_S {
             get {
-                return ResourceManager.GetString("RENAME_S", resourceCulture);
+                return ResourceManager.GetString("RENAME_FILES_S", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename Images.
+        /// </summary>
+        public static string RENAME_IMAGES_S {
+            get {
+                return ResourceManager.GetString("RENAME_IMAGES_S", resourceCulture);
             }
         }
     }

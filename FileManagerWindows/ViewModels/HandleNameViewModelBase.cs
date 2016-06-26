@@ -5,19 +5,11 @@ using System.Linq;
 using CB.Model.Prism;
 using CB.Prism.Interactivity;
 using CB.Subtitles;
-using FileManagerWindows.Models;
+using FileManagerModels;
 
 
 namespace FileManagerWindows.ViewModels
 {
-    public class RenameImageViewModel: HandleNameViewModelBase
-    {
-        public RenameImageViewModel(ObservableCollection<FileSystemInfo> entries,
-            ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
-        {
-            
-        }
-    }
     public class HandleNameViewModelBase: FileManagerViewModelBase
     {
         #region Fields
@@ -27,17 +19,24 @@ namespace FileManagerWindows.ViewModels
 
         #region  Constructors & Destructor
         public HandleNameViewModelBase(ObservableCollection<FileSystemInfo> entries,
-            ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
+            ConfirmRequestProvider confirmRequestProvider)
+            : this(entries, confirmRequestProvider, new FileRenameSetting()) { }
+
+        public HandleNameViewModelBase(ObservableCollection<FileSystemInfo> entries,
+            ConfirmRequestProvider confirmRequestProvider, RenameSettingBase renameSetting)
+            : base(entries, confirmRequestProvider)
         {
-            FileRenameSetting = new FileRenameSetting();
-            FileRenameSetting.PropertyChanged += RenameSetting_PropertyChanged;
+            RenameSetting = renameSetting;
+            RenameSetting.PropertyChanged += RenameSetting_PropertyChanged;
         }
         #endregion
 
 
         #region  Properties & Indexers
+        public bool CanHandle => NewNames != null && NewNames.Any();
         public CollectionBase<string, ObservableCollection<string>> ExtensionsCollection { get; } =
-            new CollectionBase<string, ObservableCollection<string>>(new ObservableCollection<string>(new[] { "" }.Concat(Subtitle.Extensions)));
+            new CollectionBase<string, ObservableCollection<string>>(
+                new ObservableCollection<string>(new[] { "" }.Concat(Subtitle.Extensions)));
 
         public FileSystemInfo[] NewNames
         {
@@ -45,7 +44,7 @@ namespace FileManagerWindows.ViewModels
             private set { SetProperty(ref _newNames, value); }
         }
 
-        public FileRenameSetting FileRenameSetting { get; }
+        public RenameSettingBase RenameSetting { get; protected set; }
         #endregion
 
 
@@ -65,8 +64,11 @@ namespace FileManagerWindows.ViewModels
 
 
         #region Implementation
+        protected virtual FileSystemInfo[] CreateNewNames()
+            => Entries?.Select((fsi, i) => fsi.CreateNewFileName(i, (FileRenameSetting)RenameSetting)).ToArray();
+
         protected virtual void UpdateNewNames()
-            => NewNames = Entries?.Select((fsi, i) => fsi.CreateNewName(i, FileRenameSetting)).ToArray();
+            => NewNames = CreateNewNames();
         #endregion
     }
 }

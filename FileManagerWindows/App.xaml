@@ -4,11 +4,12 @@
                         xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
                         xmlns:mae="clr-namespace:CB.WPF.MahAppsExtension;assembly=CB.WPF.MahAppsExtension"
                         xmlns:hpr="clr-namespace:FileManagerWindows.Helpers"
-                        xmlns:mdl="clr-namespace:FileManagerWindows.Models"
                         xmlns:sys="clr-namespace:System;assembly=mscorlib"
                         xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
                         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                        xmlns:prism="http://prismlibrary.com/">
+                        xmlns:prism="http://prismlibrary.com/"
+                        xmlns:xaml="http://wpf.cb.com/xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,13 +18,33 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="Resources/IconsNonShared.xaml" />
+                <ResourceDictionary Source="Views/Templates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <!--#region Declaration-->
             <sys:Double x:Key="ControlMinWidth">100</sys:Double>
 
             <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
 
             <vmd:MainViewModel x:Key="MainViewModel" />
+
+            <xaml:BehaviorList x:Key="FileListBehaviors" x:Shared="False">
+                <xaml:ScrollToSelectedItemBehavior />
+            </xaml:BehaviorList>
+
+            <xaml:InputBindingList x:Key="EntriesListInputBindings" x:Shared="False">
+                <KeyBinding Key="Enter"
+                            Command="{Binding Source={StaticResource MainViewModel}, Path=OpenCommand}" />
+                <KeyBinding Key="F12"
+                            Command="{Binding Source={StaticResource MainViewModel}, Path=OpenLocationCommand}" />
+                <KeyBinding Key="O" Modifiers="Control"
+                            Command="{Binding Source={StaticResource MainViewModel}, Path=AddFilesCommand}" />
+                <KeyBinding Key="Delete"
+                            Command="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.RemoveItemCommand}" />
+                <KeyBinding Key="Delete" Modifiers="Control"
+                            Command="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.ClearCommand}" />
+            </xaml:InputBindingList>
+            <!--#endregion-->
 
             <i:EventTrigger x:Key="DropTrigger" x:Shared="False" EventName="Drop">
                 <prism:InvokeCommandAction Command="{Binding DropCommand}" TriggerParameterPath="Data" />
@@ -31,55 +52,34 @@
 
             <hpr:FileSystemInfoTemplateSelector x:Key="FileSystemInfoTemplateSelector" />
 
-            <ContextMenu x:Key="FileListContextMenu">
-                <MenuItem Header="Remove"
-                          Command="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.RemoveItemCommand}" />
-                <MenuItem Header="Remove all"
-                          Command="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.ClearCommand}" />
-            </ContextMenu>
-
             <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
                 <Setter Property="MinWidth" Value="{StaticResource ControlMinWidth}" />
             </Style>
 
-            <Style x:Key="IconViewBox" TargetType="Viewbox">
-                <Setter Property="Height" Value="28" />
-                <Setter Property="Margin" Value="{StaticResource NormalMargin.Right}" />
-                <Setter Property="Width" Value="28" />
-            </Style>
-
-            <DataTemplate x:Key="FileTemplate" DataType="mdl:FileSystemInfo">
-                <StackPanel Orientation="Horizontal">
-                    <Viewbox Style="{StaticResource IconViewBox}">
-                        <ContentControl Content="{DynamicResource appbar_page_text}" />
-                    </Viewbox>
-                    <TextBlock Text="{Binding Name}" />
-                </StackPanel>
-            </DataTemplate>
-
-            <DataTemplate x:Key="FolderTemplate" DataType="mdl:FileSystemInfo">
-                <StackPanel Orientation="Horizontal">
-                    <Viewbox Style="{StaticResource IconViewBox}">
-                        <ContentControl Content="{DynamicResource appbar_folder}" />
-                    </Viewbox>
-                    <TextBlock Text="{Binding Name}" />
-                </StackPanel>
-            </DataTemplate>
-
-            <DataTemplate x:Key="CompressionTemplate" DataType="mdl:FileSystemInfo">
-                <StackPanel Orientation="Horizontal">
-                    <Viewbox Style="{StaticResource IconViewBox}">
-                        <ContentControl Content="{DynamicResource appbar_archive}" />
-                    </Viewbox>
-                    <TextBlock Text="{Binding Name}" />
-                </StackPanel>
-            </DataTemplate>
+            <ContextMenu x:Key="EntriesListContextMenu">
+                <MenuItem Header="Open" InputGestureText="Enter"
+                          Command="{Binding Source={StaticResource MainViewModel}, Path=OpenCommand}" />
+                <MenuItem Header="Open location" InputGestureText="F12"
+                          Command="{Binding Source={StaticResource MainViewModel}, Path=OpenLocationCommand}" />
+                <Separator />
+                <MenuItem Header="Add files..." InputGestureText="Ctrl+O"
+                          Command="{Binding Source={StaticResource MainViewModel}, Path=AddFilesCommand}" />
+                <MenuItem Header="Remove" InputGestureText="Del"
+                          Command="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.RemoveItemCommand}" />
+                <MenuItem Header="Remove all" InputGestureText="Ctrl+Del"
+                          Command="{Binding Source={StaticResource MainViewModel}, Path=EntryCollection.ClearCommand}" />
+            </ContextMenu>
 
             <Style x:Key="FileListStyle" TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
                 <Setter Property="AllowDrop" Value="True" />
-                <Setter Property="ContextMenu" Value="{StaticResource FileListContextMenu}" />
                 <Setter Property="ItemTemplateSelector" Value="{StaticResource FileSystemInfoTemplateSelector}" />
                 <Setter Property="Margin" Value="0" />
+                <Setter Property="xaml:InteractionServices.Behaviors" Value="{StaticResource FileListBehaviors}" />
+                <Setter Property="xaml:ItemsControlServices.GroupName" Value="fileList" />
+            </Style>
+
+            <Style x:Key="EntriesListStyle" TargetType="ListBox" BasedOn="{StaticResource FileListStyle}">
+                <Setter Property="ContextMenu" Value="{StaticResource EntriesListContextMenu}" />
                 <Setter Property="dd:DragDrop.IsDragSource" Value="True" />
                 <Setter Property="dd:DragDrop.IsDropTarget" Value="True" />
                 <Setter Property="dd:DragDrop.DragAdornerTemplateSelector"

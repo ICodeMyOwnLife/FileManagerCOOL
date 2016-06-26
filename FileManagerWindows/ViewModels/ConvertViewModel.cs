@@ -4,7 +4,7 @@ using System.Linq;
 using CB.Model.Prism;
 using CB.Prism.Interactivity;
 using CB.Subtitles;
-using FileManagerWindows.Models;
+using FileManagerModels;
 using Prism.Commands;
 
 
@@ -14,7 +14,12 @@ namespace FileManagerWindows.ViewModels
     {
         #region  Constructors & Destructor
         public ConvertViewModel(ObservableCollection<FileSystemInfo> entries,
-            ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
+            ConfirmRequestProvider confirmRequestProvider)
+            : this(entries, confirmRequestProvider, new FileRenameSetting()) { }
+
+        public ConvertViewModel(ObservableCollection<FileSystemInfo> entries,
+            ConfirmRequestProvider confirmRequestProvider, FileRenameSetting renameSetting)
+            : base(entries, confirmRequestProvider, renameSetting)
         {
             ConvertCommand = new NamedCommand("Convert",
                 new DelegateCommand(Convert, () => CanConvert).ObservesProperty(() => CanConvert));
@@ -28,7 +33,7 @@ namespace FileManagerWindows.ViewModels
 
 
         #region  Properties & Indexers
-        public bool CanConvert => Entries.All(e => Subtitle.IsSubtitleFile(e.FullPath));
+        public bool CanConvert => CanHandle;
         #endregion
 
 
@@ -43,6 +48,9 @@ namespace FileManagerWindows.ViewModels
 
 
         #region Override
+        protected override FileSystemInfo[] CreateNewNames()
+            => Entries.All(e => e.Type == FileSystemType.Subtitle) ? base.CreateNewNames() : null;
+
         protected override void OnEntriesChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             base.OnEntriesChanged(sender, e);

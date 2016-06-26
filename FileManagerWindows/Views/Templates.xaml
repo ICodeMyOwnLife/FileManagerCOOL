@@ -1,0 +1,141 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:vmd="clr-namespace:FileManagerWindows.ViewModels"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:xaml="http://wpf.cb.com/xaml"
+                    xmlns:v="clr-namespace:FileManagerWindows.Views"
+                    xmlns:mdl="clr-namespace:FileManagerModels;assembly=FileManagerModels">
+
+    <!--#region Resources-->
+    <Style x:Key="IconViewBox" TargetType="Viewbox">
+        <Setter Property="Height" Value="28" />
+        <Setter Property="Margin" Value="{StaticResource NormalMargin.Right}" />
+        <Setter Property="Width" Value="28" />
+    </Style>
+
+    <Style x:Key="ImageRenameSettingMaskTextBox" TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}">
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="Width" Value="40" />
+    </Style>
+    <!--#endregion-->
+
+
+    <!--#region FileSystemInfo Templates-->
+    <DataTemplate x:Key="FileEntryTemplate" DataType="mdl:FileSystemInfo">
+        <StackPanel Orientation="Horizontal">
+            <Viewbox Style="{StaticResource IconViewBox}">
+                <ContentControl Content="{DynamicResource appbar_page}" />
+            </Viewbox>
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FolderEntryTemplate" DataType="mdl:FileSystemInfo">
+        <StackPanel Orientation="Horizontal">
+            <Viewbox Style="{StaticResource IconViewBox}">
+                <ContentControl Content="{DynamicResource appbar_folder}" />
+            </Viewbox>
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CompressionEntryTemplate" DataType="mdl:FileSystemInfo">
+        <StackPanel Orientation="Horizontal">
+            <Viewbox Style="{StaticResource IconViewBox}">
+                <ContentControl Content="{DynamicResource appbar_archive}" />
+            </Viewbox>
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ImageEntryTemplate" DataType="mdl:FileSystemInfo">
+        <StackPanel Orientation="Horizontal">
+            <Viewbox Style="{StaticResource IconViewBox}">
+                <ContentControl Content="{DynamicResource appbar_image}" />
+            </Viewbox>
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SubtitleEntryTemplate" DataType="mdl:FileSystemInfo">
+        <StackPanel Orientation="Horizontal">
+            <Viewbox Style="{StaticResource IconViewBox}">
+                <ContentControl Content="{DynamicResource appbar_page_text}" />
+            </Viewbox>
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </DataTemplate>
+    <!--#endregion-->
+
+
+    <!--#region RenameSetting Templates-->
+    <DataTemplate x:Key="SettingBaseNameTemplate" DataType="mdl:RenameSettingBase">
+        <DockPanel>
+            <TextBlock Text="Base name:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
+            <TextBox Text="{Binding BaseName, UpdateSourceTrigger=PropertyChanged, Delay=250}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SettingStartAtTemplate" DataType="mdl:FileRenameSetting">
+        <DockPanel>
+            <TextBlock Text="Start at:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
+            <controls:NumericUpDown MinWidth="{DynamicResource ControlMinWidth}" TextAlignment="Center"
+                                    Value="{Binding StartAt}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SettingUseMaskTemplate" DataType="mdl:FileRenameSetting">
+        <CheckBox IsChecked="{Binding UseMask}" Content="Use mask?" />
+
+    </DataTemplate>
+
+    <DataTemplate x:Key="SelectExtensionTemplate" DataType="vmd:HandleNameViewModelBase">
+        <DockPanel>
+            <TextBlock Text="Extension:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
+            <ComboBox MinWidth="{DynamicResource ControlMinWidth}" IsEditable="True"
+                      StaysOpenOnEdit="True"
+                      ItemsSource="{Binding ExtensionsCollection.CollectionView}"
+                      SelectedItem="{Binding RenameSetting.Extension}">
+                <i:Interaction.Behaviors>
+                    <xaml:AddItemBehavior />
+                </i:Interaction.Behaviors>
+            </ComboBox>
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SettingWidthMaskTemplate" DataType="mdl:ImageRenameSetting">
+        <DockPanel>
+            <TextBlock Text="Width mask:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
+            <TextBox Style="{StaticResource ImageRenameSettingMaskTextBox}"
+                Text="{Binding WidthMask, UpdateSourceTrigger=PropertyChanged, Delay=250}" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SettingHeightMaskTemplate" DataType="mdl:ImageRenameSetting">
+        <DockPanel>
+            <TextBlock Text="Height mask:" Style="{StaticResource TextBlockStyle.LeftAlign}" />
+            <TextBox Style="{StaticResource ImageRenameSettingMaskTextBox}"
+                Text="{Binding HeightMask, UpdateSourceTrigger=PropertyChanged, Delay=250}" />
+        </DockPanel>
+    </DataTemplate>
+    <!--#endregion-->
+
+
+    <DataTemplate x:Key="NamesViewTemplate" DataType="vmd:HandleNameViewModelBase">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" MinWidth="200" />
+                <ColumnDefinition Width="3*" MinWidth="200" />
+            </Grid.ColumnDefinitions>
+
+            <v:EntriesView x:Name="entriesView" Grid.Column="0" DataContext="{DynamicResource MainViewModel}" />
+
+            <GroupBox Grid.Column="1" Header="New names">
+                <ListBox ItemsSource="{Binding NewNames}" Style="{DynamicResource FileListStyle}" />
+            </GroupBox>
+
+            <GridSplitter Grid.Column="1" Style="{StaticResource GridSplitterStyle.Vertical}" />
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

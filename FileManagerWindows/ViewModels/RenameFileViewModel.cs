@@ -2,17 +2,18 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using CB.Model.Prism;
 using CB.Prism.Interactivity;
-using FileManagerWindows.Models;
+using FileManagerModels;
 using Prism.Commands;
 
 
 namespace FileManagerWindows.ViewModels
 {
-    public class RenameViewModel: HandleNameViewModelBase
+    public class RenameViewModelBase: HandleNameViewModelBase
     {
         #region  Constructors & Destructor
-        public RenameViewModel(ObservableCollection<FileSystemInfo> entries,
-            ConfirmRequestProvider confirmRequestProvider): base(entries, confirmRequestProvider)
+        public RenameViewModelBase(ObservableCollection<FileSystemInfo> entries,
+            ConfirmRequestProvider confirmRequestProvider, RenameSettingBase renameSetting)
+            : base(entries, confirmRequestProvider, renameSetting)
         {
             RenameCommand = new NamedCommand("Rename",
                 new DelegateCommand(Rename, () => CanRename).ObservesProperty(() => CanRename));
@@ -26,7 +27,7 @@ namespace FileManagerWindows.ViewModels
 
 
         #region  Properties & Indexers
-        public bool CanRename => NewNames != null && NewNames.Any();
+        public virtual bool CanRename => CanHandle;
         #endregion
 
 
@@ -56,6 +57,18 @@ namespace FileManagerWindows.ViewModels
             {
                 FileSystemInfo.Move(Entries[i], NewNames[i]);
             }
+        }
+        #endregion
+    }
+
+    public class RenameFileViewModel: RenameViewModelBase
+    {
+        #region  Constructors & Destructor
+        public RenameFileViewModel(ObservableCollection<FileSystemInfo> entries,
+            ConfirmRequestProvider confirmRequestProvider, FileRenameSetting renameSetting)
+            : base(entries, confirmRequestProvider, renameSetting)
+        {
+            RenameCommand.Name = "Rename files";
         }
         #endregion
     }

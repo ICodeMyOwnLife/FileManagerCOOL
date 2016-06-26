@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using CB.Model.Common;
+using CB.Subtitles;
 
 
-namespace FileManagerWindows.Models
+namespace FileManagerModels
 {
     public class FileSystemInfo: BindableObject
     {
@@ -33,7 +35,7 @@ namespace FileManagerWindows.Models
                 if (SetProperty(ref _fullPath, value))
                 {
                     Name = Path.GetFileName(value);
-                    Type = GetFileSystemType(value);
+                    Type = FileSystemHelper.GetFileSystemType(value);
                 }
             }
         }
@@ -56,22 +58,20 @@ namespace FileManagerWindows.Models
         public static void Move(FileSystemInfo source, FileSystemInfo destination)
         {
             if (source.Type != destination.Type) throw new InvalidOperationException();
-            switch (source.Type)
+
+            if (source.Type == FileSystemType.Folder)
             {
-                case FileSystemType.Folder:
-                    Directory.Move(source.FullPath, destination.FullPath);
-                    break;
-                case FileSystemType.File:
-                case FileSystemType.Compression:
-                    File.Move(source.FullPath, destination.FullPath);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                Directory.Move(source.FullPath, destination.FullPath);
             }
+            else
+            {
+                File.Move(source.FullPath, destination.FullPath);
+            }
+
             source.FullPath = destination.FullPath;
         }
 
-        public FileSystemInfo CreateNewName(int index, FileRenameSetting setting)
+        public FileSystemInfo CreateNewFileName(int index, FileRenameSetting setting)
         {
             var baseName = setting.BaseName ?? "";
             var suffix = (index + setting.StartAt).ToString();
@@ -93,10 +93,20 @@ namespace FileManagerWindows.Models
             }
 
             var newName = prefix + suffix + extension;
+            return CreateNewName(newName);
+        }
 
-            var folder = Path.GetDirectoryName(FullPath);
-            var fullPath = folder == null ? newName : Path.Combine(folder, newName);
-            return new FileSystemInfo(fullPath);
+        public FileSystemInfo CreateNewImageName(ImageRenameSetting setting)
+        {
+            if (Type != FileSystemType.Image) throw new NotSupportedException();
+
+            using (var image = Image.FromFile(FullPath))
+            {
+                var newName =
+                    setting.BaseName.Replace(setting.WidthMask, image.Width.ToString()).Replace(setting.HeightMask,
+                        image.Height.ToString()) + Path.GetExtension(FullPath);
+                return CreateNewName(newName);
+            }
         }
         #endregion
 
@@ -107,20 +117,11 @@ namespace FileManagerWindows.Models
 
 
         #region Implementation
-        private static FileSystemType GetFileSystemType(string path)
+        private FileSystemInfo CreateNewName(string newName)
         {
-            if (Directory.Exists(path)) return FileSystemType.Folder;
-
-            switch (Path.GetExtension(path))
-            {
-                case ".zip":
-                case ".rar":
-                case ".7z":
-                case ".tar":
-                    return FileSystemType.Compression;
-                default:
-                    return FileSystemType.File;
-            }
+            var folder = Path.GetDirectoryName(FullPath);
+            var fullPath = folder == null ? newName : Path.Combine(folder, newName);
+            return new FileSystemInfo(fullPath);
         }
         #endregion
     }

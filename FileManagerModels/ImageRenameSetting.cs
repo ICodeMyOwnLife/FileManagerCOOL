@@ -1,10 +1,18 @@
-namespace FileManagerWindows.Models
+namespace FileManagerModels
 {
     public class ImageRenameSetting: RenameSettingBase
     {
         #region Fields
         private string _heightMask = "{h}";
         private string _widthMask = "{w}";
+        #endregion
+
+
+        #region  Constructors & Destructor
+        public ImageRenameSetting()
+        {
+            BaseName = $"{DEFAULT_NEW_NAME} ({WidthMask}x{HeightMask})";
+        }
         #endregion
 
 

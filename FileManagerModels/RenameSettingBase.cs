@@ -1,7 +1,7 @@
 ﻿using CB.Model.Common;
 
 
-namespace FileManagerWindows.Models
+namespace FileManagerModels
 {
     public class RenameSettingBase: BindableObject
     {

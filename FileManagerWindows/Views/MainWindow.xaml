@@ -7,10 +7,11 @@
                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                  xmlns:v="clr-namespace:FileManagerWindows.Views"
                  xmlns:xaml="http://wpf.cb.com/xaml"
-                 xmlns:prism="http://prismlibrary.com/"
+                 xmlns:prm="http://prismlibrary.com/"
                  mc:Ignorable="d"
                  Title="File Manager COOL" Height="600" Width="800" Style="{StaticResource MetroWindowStyle}"
-                 WindowStartupLocation="CenterScreen" AllowDrop="True" Icon="../Folder2.ico">
+                 WindowStartupLocation="CenterScreen" AllowDrop="True" Icon="../Folder2.ico"
+                 xaml:InteractionServices.InputBindings="{StaticResource EntriesListInputBindings}">
 
     <Window.Resources>
         <Style TargetType="TabItem">
@@ -21,14 +22,18 @@
     <Window.DataContext>
         <StaticResource ResourceKey="MainViewModel" />
     </Window.DataContext>
-
+    
     <i:Interaction.Triggers>
         <StaticResource ResourceKey="DropTrigger" />
 
-        <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmRequestProvider.Request}">
+        <prm:InteractionRequestTrigger SourceObject="{Binding ConfirmRequestProvider.Request}">
             <xaml:WindowTriggerAction CenterOverAssociatedObject="True" IsModal="True"
                                       WindowType="xaml:MahAppsConfirmWindow" />
-        </prism:InteractionRequestTrigger>
+        </prm:InteractionRequestTrigger>
+
+        <prm:InteractionRequestTrigger SourceObject="{Binding FileSystemInteractionRequest}">
+            <xaml:WindowTriggerAction CenterOverAssociatedObject="True" IsModal="True" />
+        </prm:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
     <Grid>
@@ -51,11 +56,15 @@
             </TabItem>
 
             <TabItem xaml:SelectorServices.SelectionBinding="{Binding CommandCollection.Collection[1]}">
-                <v:HandleView DataContext="{Binding RenameNameViewModel}" />
+                <v:HandleView DataContext="{Binding RenameFileViewModel}" />
             </TabItem>
 
             <TabItem xaml:SelectorServices.SelectionBinding="{Binding CommandCollection.Collection[2]}">
-                <v:HandleView DataContext="{Binding ConvertNameViewModel}" />
+                <v:RenameImageView DataContext="{Binding RenameImageViewModel}" />
+            </TabItem>
+
+            <TabItem xaml:SelectorServices.SelectionBinding="{Binding CommandCollection.Collection[3]}">
+                <v:HandleView DataContext="{Binding ConvertViewModel}" />
             </TabItem>
         </mah:MetroAnimatedTabControl>
         <Grid Grid.Row="1" />

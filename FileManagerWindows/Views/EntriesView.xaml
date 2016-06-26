@@ -7,7 +7,6 @@
              xmlns:xaml="http://wpf.cb.com/xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:v="clr-namespace:FileManagerWindows.Views"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance vmd:MainViewModel}">
 
@@ -43,11 +42,7 @@
         </GroupBox.Header>
 
         <ListBox ItemsSource="{Binding Path=EntryCollection.CollectionView}"
-                 Style="{StaticResource FileListStyle}"
-                 SelectedIndex="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=v:EntriesView}, Path=SelectedIndex}">
-            <i:Interaction.Behaviors>
-                <xaml:ScrollToSelectedItemBehavior />
-            </i:Interaction.Behaviors>
+                 Style="{StaticResource EntriesListStyle}">
         </ListBox>
     </GroupBox>
 </UserControl>
